@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Assets.MyAssets.Field.Scripts.Players
 {
+    /// <summary>
+    /// プレイヤーのコンポーネントの基底クラス
+    /// </summary>
     public abstract class BasePlayerComponent : MonoBehaviour
     {
         private IInputProvider _inputEventProvider;
