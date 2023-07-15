@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.MyAssets.Field.Scripts.States;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace Assets.MyAssets.Field.Scripts.Players
@@ -29,6 +30,12 @@ namespace Assets.MyAssets.Field.Scripts.Players
         private readonly AsyncSubject<CharacterStates> _onInitializeAsyncSubject = new AsyncSubject<CharacterStates>();
         public IObservable<CharacterStates> OnInitializeAsync => _onInitializeAsyncSubject;
         
+        //private Subject<ItemEffect> _pickUpItemSubject = new Subject<ItemEffect>();
+        //public IObservable<ItemEffect> OnPickUpItem => _pickUpItemSubject;
+        
+        private ReactiveProperty<PlayerGear> _currentPlayerGear;
+        public IReadOnlyReactiveProperty<PlayerGear> CurrentPlayerGear => _currentPlayerGear;
+        
 
         void Awake()
         {
@@ -49,7 +56,19 @@ namespace Assets.MyAssets.Field.Scripts.Players
                 
                 IsAlive.Where(y => y).Skip(1)
                     .Subscribe(_ => { Debug.Log("いくぞ！"); });
-            });
+            });             
+            
+            this.OnTriggerEnter2DAsObservable()
+                .Where(__ => IsAlive.Value)
+                .Subscribe(x =>
+                {
+                    /*var i = x.GetComponent<ItemBase>();
+                    if (i != null)
+                    {
+                        _pickUpItemSubject.OnNext(i.ItemEffect);
+                        i.ActivateEffect();
+                    }*/
+                });
         }
 
         public void ResetPlayerParameter()
@@ -76,7 +95,8 @@ namespace Assets.MyAssets.Field.Scripts.Players
 
         public void EquipGear(PlayerGear gear)
         {
-            CharacterStates playerGear = ScriptableObject.CreateInstance<CharacterStates>();;
+            CharacterStates playerGear = ScriptableObject.CreateInstance<CharacterStates>();
+            _currentPlayerGear.Value = gear;
             playerGear.AddValue(gear.Head);
             playerGear.AddValue(gear.Body);
             playerGear.AddValue(gear.Legs);
