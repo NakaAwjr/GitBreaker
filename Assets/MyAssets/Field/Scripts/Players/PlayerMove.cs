@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Assets.MyAssets.Field.Scripts.Players
 {
+    /// <summary>
+    /// プレイヤーの動き
+    /// </summary>
     public class PlayerMove : BasePlayerComponent
     {
         [SerializeField]

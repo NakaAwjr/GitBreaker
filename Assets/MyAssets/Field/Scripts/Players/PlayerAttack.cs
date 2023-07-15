@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Assets.MyAssets.Field.Scripts.Players
 {
+    /// <summary>
+    /// プレイヤーの攻撃
+    /// </summary>
     public class PlayerAttack : BasePlayerComponent
     {
         protected override void OnInitialize()
@@ -14,16 +17,16 @@ namespace Assets.MyAssets.Field.Scripts.Players
                 .Where(_ => PlayerCore.IsAlive.Value)
                 .Subscribe(_ =>
                 {
-                    CharacterStates afterStates = PlayerCore.CurrentPlayerGear.Value.Weapon.AttackNormal(PlayerCore.CurrentPlayerParameter);
-                    PlayerCore.SetPlayerParameter(afterStates);
+                    /*CharacterStates afterStates = PlayerCore.CurrentPlayerGear.Value.Weapon.AttackNormal(PlayerCore.CurrentPlayerParameter);
+                    PlayerCore.SetPlayerParameter(afterStates);*/
                 });
             
             InputProvider.OnSpecialAttackButtonPushed
                 .Where(_ => PlayerCore.IsAlive.Value)
                 .Subscribe(_ =>
                 {
-                    CharacterStates afterStates = PlayerCore.CurrentPlayerGear.Value.Weapon.AttackSpecial(PlayerCore.CurrentPlayerParameter);
-                    PlayerCore.SetPlayerParameter(afterStates);
+                    /*CharacterStates afterStates = PlayerCore.CurrentPlayerGear.Value.Weapon.AttackSpecial(PlayerCore.CurrentPlayerParameter);
+                    PlayerCore.SetPlayerParameter(afterStates);*/
                 });
         }
     }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Assets.MyAssets.Field.Scripts.Players
 {
+    /// <summary>
+    /// プレイヤーのアイテム処理
+    /// </summary>
     public class PlayerItem : BasePlayerComponent
     {
         private Coroutine _currentCoroutine;
