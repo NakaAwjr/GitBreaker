@@ -18,7 +18,7 @@ public class Test : MonoBehaviour
         {
             Debug.Log($"{x.Key}が{x.OldValue}から{x.NewValue}になりました");
         });
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         hoge.EquipGear(_playerGear);
     }
 }

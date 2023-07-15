@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Assets.MyAssets.Field.Scripts.Players.Inputs;
 using UniRx;
 using UnityEngine;

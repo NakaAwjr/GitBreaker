@@ -27,11 +27,11 @@ namespace Assets.MyAssets.Field.Scripts.Players.Inputs
                     Vector3 inputDirection = Vector3.zero;
                     if (Input.GetKey(KeyCode.W))
                     {
-                        inputDirection += Vector3.forward;
+                        inputDirection += Vector3.up;
                     }
                     if (Input.GetKey(KeyCode.S))
                     {
-                        inputDirection += Vector3.back;
+                        inputDirection += Vector3.down;
                     }
                     if (Input.GetKey(KeyCode.A))
                     {
