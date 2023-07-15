@@ -12,6 +12,8 @@ namespace Assets.MyAssets.Field.Scripts.Players
         [SerializeField]
         private Rigidbody2D _rigidbody;
 
+        private float _roleSpeed = 360f;
+
         private Vector3 _inputDirection;
         
         public void Move(Vector3 velocity)
@@ -24,9 +26,17 @@ namespace Assets.MyAssets.Field.Scripts.Players
             this.FixedUpdateAsObservable()
                 .Subscribe(_ =>
                 {
-                    Debug.Log(_inputDirection);
                     _rigidbody.velocity = _inputDirection * PlayerCore.CurrentPlayerParameter["Speed"] * 0.5f;
+                    if (_inputDirection != Vector3.zero)
+                    {
+                        transform.rotation = Quaternion.Euler(0, 0, Vector2ToAngle(new Vector2(_inputDirection.x,_inputDirection.y)) - 90f);
+                    }
                 });
+        }
+        
+        private static float Vector2ToAngle(Vector2 vector)
+        {
+            return Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
         }
     }
 }
