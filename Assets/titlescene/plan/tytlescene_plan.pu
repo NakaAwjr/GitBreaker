@@ -1,0 +1,138 @@
+@startuml
+object TytleText {
+    -String tytleText
+}
+
+PlaySelect ---> Maching : clickMultiplay
+PlaySelect --> BossSelect : clickSoloplay
+Maching --> BossSelect : clickBuildRoom
+Maching ---> VisitRoom : clickVisitRoom
+VisitRoom ---> Maching : clickBack
+package PlaySelect{
+    class PlayButtunBuilder{
+        -bool isSoloplay
+
+        + setIsSoloplay(isSoloplay)
+        -void clickSoloplay()
+        -void clickMultiplay()
+    }
+    note right of PlayButtunBuilder
+        isPlayは
+        フィールドシーンに
+    end note
+    object Buttun_Soloplay {
+    }
+    object Buttun_Multiplay {
+    }
+    Buttun_Soloplay --> PlayButtunBuilder
+    Buttun_Multiplay --> PlayButtunBuilder
+}
+
+package Maching{
+    class MachButtunBuilder{
+        -void clickBuildRoom()
+        -void clickVisitRoom()
+    }
+    object Buttun_BuildRoom {
+    }
+    object Buttun_VisitRoom {
+    }
+    Buttun_BuildRoom --> MachButtunBuilder
+    Buttun_VisitRoom --> MachButtunBuilder
+}
+
+package VisitRoom{
+    class RoomSelecter{
+        -bool isRamdomMaching
+        -int password
+
+        + setRamdomMaching(isRamdomMaching)
+        + setPassword(password)
+        -void clickRamdomMaching()
+        -void clickEnterRoom()
+        -void clickBack()
+    }
+    note right of RoomSelecter
+        isRamdomMaching,passwordは
+        マッチングシーンに
+    end note
+    object Buttun_RamdumMaching {
+    }
+    object FieldPassword {
+        -int password
+    }
+    object Buttun_EnterRoom {
+    }
+    object Buttun_Back {
+    }
+    FieldPassword --> Buttun_EnterRoom
+    Buttun_RamdumMaching --> RoomSelecter
+    Buttun_EnterRoom --> RoomSelecter
+    Buttun_Back --> RoomSelecter
+}
+
+package BossSelect{
+    class BossSelecter{
+        -int bossNum
+
+        + setBossNum(bossNum)
+        -void clickBoss1()
+        -void clickBoss2()
+        -void clickBoss3()
+    }
+    note right of BossSelecter
+            bossNumは
+            マッチングシーンに
+        end note
+}
+
+class ValueManager{
+    +int bossNum
+    +int password
+    +bool isRamdomMaching
+    +bool isSoloplay
+
+    +void setBossNum(bossNum)
+    +void setPassword(password)
+    +void setIsRamdomMaching(isRamdomMaching)
+    +void setIsSoloplay(isSoloplay)
+}
+
+note right of PlaySelect
+    もしかしたらいらんかも：
+    部屋を作ったあとにマッチングシーン内で
+    野良を受け入れるかの設定を作るのはあり
+end note
+@enduml
+
+@startuml
+start
+:PlaySelect;
+if (PlayButtunBuilder) then (clickSoloplay)
+    :BossSelect;
+else (clickMultiplay)
+    :Maching;
+    if (MachButtunBuilder) then (clickBuildRoom)
+        :BossSelect;
+    else (clickVisitRoom)
+        :VisitRoom;
+        fork
+            :RamdomMaching;
+        fork again
+            :EnterRoom;
+        end fork
+    endif
+    :MachingScene;
+endif
+:FieldScene;
+end
+@enduml
+
+@startuml
+start
+:ルーム名を指定する;
+if (ルーム名が空白) then (yes)
+    :ランダムマッチング;
+else (no)
+    :ルーム名を指定してマッチング;
+@enduml
