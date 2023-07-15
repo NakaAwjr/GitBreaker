@@ -7,12 +7,12 @@ namespace Assets.MyAssets.Field.Scripts.Weapons
 {
     public abstract class BaseWeapon : MonoBehaviour
     {
-        private WeaponType _weaponType;
-        private int _power;
-        private int _recoverySecond;
+        public WeaponType WeaponType;
+        public int Power;
+        public float RecoverySecond;
 
-        protected abstract void AttackNormal(CharacterStates currentStates);
-        protected abstract void AttackSpecial(CharacterStates currentStates);
+        protected abstract CharacterStates AttackNormal(CharacterStates currentStates);
+        protected abstract CharacterStates AttackSpecial(CharacterStates currentStates);
     }
 }
 
