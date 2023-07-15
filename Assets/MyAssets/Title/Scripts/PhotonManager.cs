@@ -55,12 +55,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnJoinedRoom");
         Room myroom = PhotonNetwork.CurrentRoom;
-        Photon.Realtime.Player player = PhotonNetwork.LocalPlayer;
-        Debug.Log("RoomName:" + myroom.Name);
-        Debug.Log("PlayerName:" + player.ActorNumber);
+        Photon.Realtime.Player localplayer = PhotonNetwork.LocalPlayer;
+        Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
 
         MachingManager.RoomID = myroom.Name;
+        MachingManager.PlayerCount = players.Length;
+        MachingManager.PlayerNumber = localplayer.ActorNumber;
 
+        MachingManager.SetPlayerCount();
         MoveManager.EndConnect();
     }
 
@@ -84,19 +86,21 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
-        foreach (Photon.Realtime.Player p in players)
-        {
-            Debug.Log("PlayerName:" + p.ActorNumber);
-        }
+        Photon.Realtime.Player localplayer = PhotonNetwork.LocalPlayer;
+
         Debug.Log(players.Length);
         MachingManager.PlayerCount = players.Length;
+        MachingManager.PlayerNumber = localplayer.ActorNumber;
         MachingManager.SetPlayerCount();
     }
 
     public override void OnPlayerLeftRoom(Player player)
     {
         Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
+        Photon.Realtime.Player localplayer = PhotonNetwork.LocalPlayer;
+
         MachingManager.PlayerCount = players.Length;
+        MachingManager.PlayerNumber = localplayer.ActorNumber;
         MachingManager.SetPlayerCount();
     }
 
