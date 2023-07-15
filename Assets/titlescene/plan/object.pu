@@ -1,0 +1,101 @@
+@startuml
+TitleText -down-> Field_NickName
+Field_NickName -down-> Button_Visitroom
+Field_NickName -down-> Button_CreateRoom
+Button_CreateRoom -down-> CreateRoom
+Button_Visitroom -down-> VisitRoom
+CreateRoom -down-> PhotonManager
+VisitRoom -down-> PhotonManager
+ValueManager -down-> PhotonManager
+PhotonManager -down-> Maching
+Maching -down-> MoveManager
+
+object TitleText {
+    -text
+}
+object Field_NickName {
+    -string NickName
+}
+object Button_Visitroom {
+}
+object Button_CreateRoom {
+}
+package CreateRoom{
+    RoomOptions -down-> Button_Create
+    RoomOptions -down-> Button_Cancel
+    object Button_Create {
+    }
+    object Button_Cancel {
+    }
+    object RoomOptions {
+        -int MaxPlayers=4
+        -bool IsOpen
+        -bool IsVisible
+        -int BossNumber
+    }
+}
+package VisitRoom{
+    Button_isSelect -down-> Field_RoomName
+    Field_RoomName -down-> Button_Enter
+    Field_RoomName -down-> Button_Cancel2
+    Button_isRandom -down-> Button_Enter
+    Button_isRandom -down-> Button_Cancel2
+    object Button_isRandom {
+        -bool isRandom
+    }
+    object Button_isSelect {
+        -bool isRandom
+    }
+    object Field_RoomName {
+        -int roomName
+    }
+    object Button_Enter {
+    }
+    object Button_Cancel2 {
+    }
+    object VisitOptions{
+        -bool isRandom
+        -int roomName
+    }
+}
+class MoveManager{
+}
+class ValueManager{
+    -int MaxPlayers
+    -bool IsOpen
+    -bool IsVisible
+    -string NickName
+    -int roomName
+    -bool isRandom
+    -int BossNumber
+}
+class PhotonManager{
+    -void Start()
+    +void PushButton_Create()
+    +void PushButton_Enter()
+}
+note top of ValueManager
+    PhotonManagerにプロパティで値を渡す
+end note
+
+package Maching{
+    Propertys -down-> PhotonPlopertys
+    object Button_start {
+        ホストのみ
+    }
+    object Button_Exsit {
+        ホストはゲームキャンセル
+        それ以外はルームから退出
+    }
+    object Propertys {
+    }
+    class PhotonPlopertys{
+        -bool IsOpen
+        -bool IsVisible
+        -string NickName
+        -int roomName
+        -bool isRandom
+        -int BossNumber
+    }
+}
+@enduml
