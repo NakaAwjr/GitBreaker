@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Assets.MyAssets.Field.Scripts.Weapons
 {
+    /// <summary>
+    /// キャラクターの武器の基底クラス
+    /// </summary>
     public abstract class BaseWeapon : MonoBehaviour
     {
         public WeaponType WeaponType;

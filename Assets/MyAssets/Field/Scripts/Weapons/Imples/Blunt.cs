@@ -14,7 +14,7 @@ namespace Assets.MyAssets.Field.Scripts.Weapons.Imples
         void Start()
         {
             _bluntPrefab = Resources.Load("Prefabs/Blunt") as GameObject;
-            this.WeaponType = WeaponType.Sword;
+            this.WeaponType = WeaponType.Blunt;
             this.Power = 10;
             this.RecoverySecond = 1f;
             _recoveryWeapon = false;

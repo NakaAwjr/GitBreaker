@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Assets.MyAssets.Field.Scripts.Players
 {
+    /// <summary>
+    /// プレイヤーの攻撃
+    /// </summary>
     public class PlayerAttack : BasePlayerComponent
     {
         protected override void OnInitialize()

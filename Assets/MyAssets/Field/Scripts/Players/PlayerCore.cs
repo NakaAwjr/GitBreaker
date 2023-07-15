@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace Assets.MyAssets.Field.Scripts.Players
 {
+    /// <summary>
+    /// プレイヤーの基本情報
+    /// </summary>
     public class PlayerCore : MonoBehaviour
     {
         private PlayerId _playerId;

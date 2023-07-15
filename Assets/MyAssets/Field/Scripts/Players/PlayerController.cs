@@ -5,6 +5,9 @@ using UniRx;
 
 namespace Assets.MyAssets.Field.Scripts.Players
 {
+    /// <summary>
+    /// プレイヤーのinput側からの動きの制御
+    /// </summary>
     public class PlayerController : BasePlayerComponent
     {
         [SerializeField]

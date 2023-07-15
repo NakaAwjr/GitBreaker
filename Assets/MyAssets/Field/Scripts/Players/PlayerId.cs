@@ -2,6 +2,9 @@ using System;
 
 namespace Assets.MyAssets.Field.Scripts.Players
 {
+    /// <summary>
+    /// プレイヤーのIDのenum
+    /// </summary>
     public enum PlayerId
     {
         Player1 = 1,

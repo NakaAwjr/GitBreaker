@@ -14,7 +14,7 @@ namespace Assets.MyAssets.Field.Scripts.Weapons.Imples
         void Start()
         {
             _magicWandPrefab = Resources.Load("Prefabs/MagicWand") as GameObject;
-            this.WeaponType = WeaponType.Sword;
+            this.WeaponType = WeaponType.MagicWand;
             this.Power = 5;
             this.RecoverySecond = 0.7f;
             _recoveryWeapon = false;
