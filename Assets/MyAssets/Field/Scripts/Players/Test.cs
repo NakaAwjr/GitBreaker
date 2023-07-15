@@ -14,7 +14,7 @@ public class Test : MonoBehaviour
     
     IEnumerator Start()
     {
-        hoge.ReplaceObservable.Subscribe(x =>
+        hoge.CurrentPlayerParameter.ObserveReplace().Subscribe(x =>
         {
             Debug.Log($"{x.Key}が{x.OldValue}から{x.NewValue}になりました");
         });

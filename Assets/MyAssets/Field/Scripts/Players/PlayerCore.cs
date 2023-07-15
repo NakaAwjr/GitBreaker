@@ -21,21 +21,35 @@ namespace Assets.MyAssets.Field.Scripts.Players
         private CharacterStates _defaultPlayerParameter;
 
         private ReactiveDictionary<string, int> _currentPlayerParameter;
-        public Dictionary<string, int> CurrentPlayerParameter => _currentPlayerParameter.ToDictionary(pair => pair.Key, pair => pair.Value);
-        public IObservable<DictionaryReplaceEvent<string, int>> ReplaceObservable => _currentPlayerParameter.ObserveReplace();
+        public ReactiveDictionary<string, int> CurrentPlayerParameter => _currentPlayerParameter;
+        
+        private ReactiveProperty<bool> _isAlive = new BoolReactiveProperty(true);
+        public IReadOnlyReactiveProperty<bool> IsAlive => _isAlive;
+
+        private readonly AsyncSubject<CharacterStates> _onInitializeAsyncSubject = new AsyncSubject<CharacterStates>();
+        public IObservable<CharacterStates> OnInitializeAsync => _onInitializeAsyncSubject;
+        
 
         void Awake()
         {
-            _currentPlayerParameter = new ReactiveDictionary<string,int>()
+            InitializePlayer();
+            
+            _onInitializeAsyncSubject.Subscribe(x =>
             {
-                {"Hp", _defaultPlayerParameter.Hp}, 
-                {"Power", _defaultPlayerParameter.Power}, 
-                {"Defence", _defaultPlayerParameter.Defence},
-                {"MagicPoint", _defaultPlayerParameter.MagicPoint},
-                {"MagicPower", _defaultPlayerParameter.MagicPower},
-                {"MagicDefence", _defaultPlayerParameter.MagicDefence},
-                {"Speed", _defaultPlayerParameter.Speed}
-            };
+                _currentPlayerParameter = new ReactiveDictionary<string,int>()
+                {
+                    {"Hp", x.Hp}, 
+                    {"Power", x.Power}, 
+                    {"Defence", x.Defence},
+                    {"MagicPoint", x.MagicPoint},
+                    {"MagicPower", x.MagicPower},
+                    {"MagicDefence", x.MagicDefence},
+                    {"Speed", x.Speed}
+                };
+                
+                IsAlive.Where(y => y).Skip(1)
+                    .Subscribe(_ => { Debug.Log("いくぞ！"); });
+            });
         }
 
         public void ResetPlayerParameter()
@@ -68,6 +82,12 @@ namespace Assets.MyAssets.Field.Scripts.Players
             playerGear.AddValue(gear.Legs);
             playerGear.SetValue(hp:CurrentPlayerParameter["Hp"],magicPoint:CurrentPlayerParameter["MagicPoint"]);
             SetPlayerParameter(playerGear);
+        }
+        
+        public void InitializePlayer()
+        {
+            _onInitializeAsyncSubject.OnNext(_defaultPlayerParameter);
+            _onInitializeAsyncSubject.OnCompleted();
         }
     }
 }
