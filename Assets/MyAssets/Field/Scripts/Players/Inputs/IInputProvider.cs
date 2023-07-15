@@ -3,6 +3,9 @@ using UniRx;
 
 namespace Assets.MyAssets.Field.Scripts.Players.Inputs
 {
+    /// <summary>
+    /// 入力に対するイベントのインターフェース
+    /// </summary>
     public interface IInputProvider
     {
         public IReadOnlyReactiveProperty<Vector3> MoveDirection{ get; }

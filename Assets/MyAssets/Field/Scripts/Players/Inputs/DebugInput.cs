@@ -1,8 +1,12 @@
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+
 namespace Assets.MyAssets.Field.Scripts.Players.Inputs
 {
+    /// <summary>
+    /// デバック環境の入力イベント
+    /// </summary>
     public class DebugInput : MonoBehaviour, IInputProvider
     {
         private ReactiveProperty<Vector3> _moveDirection = new ReactiveProperty<Vector3>();
