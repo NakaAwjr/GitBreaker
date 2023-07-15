@@ -1,10 +1,13 @@
 using Assets.MyAssets.Field.Scripts.Players;
+using Assets.MyAssets.Field.Scripts.States;
 using UnityEngine;
 
 public class Test : MonoBehaviour
 {
+    [SerializeField]
+    private CharacterStates hoge;
     void Start()
     {
-        Debug.Log(PlayerIdUtility.GetIDFromPlayerName("1P"));
+        Debug.Log(hoge.Hp);
     }
 }
