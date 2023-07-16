@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Assets.MyAssets.Field.Scripts.Damages;
 using Assets.MyAssets.Field.Scripts.Enemies;
 using Assets.MyAssets.Field.Scripts.States;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 
 namespace Assets.MyAssets.Field.Scripts.Enemies
