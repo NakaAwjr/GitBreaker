@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MyAssets/Develop/Nakamura/TitleScene.unity
     guid: b496b3e4038d6a14b8c2f86b86e5823c
+  - enabled: 1
+    path: Assets/MyAssets/Develop/Hayashi/Hayashi.unity
+    guid: 03a33ff5f68d844c39acf1c6774c6008
+  - enabled: 1
+    path: Assets/MyAssets/Develop/Kurachi/Kurachi.unity
+    guid: 5c93370ccd5650342b419d96d5d911cf
   m_configObjects: {}

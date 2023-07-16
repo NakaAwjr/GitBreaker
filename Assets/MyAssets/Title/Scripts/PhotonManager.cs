@@ -68,6 +68,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     //•”‰®‚É“ü‚Á‚½‚Æ‚«
     public override void OnJoinedRoom()
     {
+        PhotonNetwork.IsMessageQueueRunning = false;
+
         Debug.Log("OnJoinedRoom");
         Room myroom = PhotonNetwork.CurrentRoom;
         MachingManager.RoomID = myroom.Name;

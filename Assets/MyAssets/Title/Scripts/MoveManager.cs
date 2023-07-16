@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MoveManager : MonoBehaviour
 {
@@ -153,8 +154,9 @@ public class MoveManager : MonoBehaviour
         };
     }
 
+    [SerializeField] private string _scenename;
     public void ClickStart()
     {
-
+        SceneManager.LoadScene(_scenename);
     }
 }
