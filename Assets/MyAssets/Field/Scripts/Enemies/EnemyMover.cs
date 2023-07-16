@@ -43,11 +43,11 @@ namespace Assets.MyAssets.Field.Scripts.Enemies
                 {
                     if (_targetVector * EnemyCore.CurrentEnemyParameter["Speed"] != null)
                     {
-                        _rigidbody.velocity = _targetVector; //* EnemyCore.CurrentEnemyParameter["Speed"] * 0.1f;
+                        _rigidbody.velocity = _targetVector * EnemyCore.CurrentEnemyParameter["Speed"] * 0.1f;
                     
                         if (_targetVector != Vector3.zero)
                         {
-                            //LookTarget(_targetVector);
+                            LookTarget(_targetVector);
                         }
                     }
                 });

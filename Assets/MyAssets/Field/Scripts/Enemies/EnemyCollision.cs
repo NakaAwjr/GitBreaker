@@ -26,17 +26,15 @@ namespace Assets.MyAssets.Field.Scripts.Enemies
                 return;
             }
 
-            if (Vector2.Distance(transform.position, other.transform.position) < 0.05f)
+            if (Vector2.Distance(transform.position, other.transform.position) < 0.1f)
             {
                 Debug.Log("Attack");
                 _enemyMover.Move(Vector3.zero);
-                _enemyMover.LookTarget(other.transform.position);
+                _enemyMover.LookTarget(other.transform.position - transform.position);
                 return;
             }
             
-            Debug.Log("Playerをおかける！");
-            
-            _enemyMover.Move(other.transform.position);
+            _enemyMover.Move(other.transform.position - transform.position);
         }
     }
 }
