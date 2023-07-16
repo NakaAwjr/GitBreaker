@@ -181,6 +181,7 @@ MonoBehaviour:
   PhotonManager: {fileID: 131882752}
   MachingManager: {fileID: 1790283111}
   _speed: 0.5
+  _scenename: Hayashi
 --- !u!114 &70498862
 MonoBehaviour:
   m_ObjectHideFlags: 0
