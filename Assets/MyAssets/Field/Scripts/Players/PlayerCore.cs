@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.MyAssets.Field.Scripts.Damages;
+using Assets.MyAssets.Field.Scripts.GameManagers;
 using Assets.MyAssets.Field.Scripts.Items;
 using Assets.MyAssets.Field.Scripts.Items.Impless;
 using Assets.MyAssets.Field.Scripts.States;
@@ -20,10 +21,9 @@ namespace Assets.MyAssets.Field.Scripts.Players
         public PlayerId PlayerId => _playerId;
         
         private IGameStateProvider _gameStateProvider;
-        
-        /*private Subject<Damage> _damageSubject = new Subject<Damage>();
-        public IObservable<Damage> OnDamaged { get { return _damageSubject; } }*/
-        
+
+        public IReadOnlyReactiveProperty<GameState> CurrentGameState => _gameStateProvider.CurrentGameState;
+
         [SerializeField]
         private CharacterStates _defaultPlayerParameter;
 
@@ -79,7 +79,6 @@ namespace Assets.MyAssets.Field.Scripts.Players
                     var i = x.GetComponent<ItemBase>();
                     if (i != null)
                     {
-                        Debug.Log("拾ったz");
                         _pickUpItemSubject.OnNext(i.ItemEffect);
                         i.PickedUp();
                     }
@@ -88,7 +87,6 @@ namespace Assets.MyAssets.Field.Scripts.Players
             CurrentPlayerParameter.ObserveReplace()
                 .Subscribe(x =>
                 {
-                    Debug.Log("hoge");
                     Debug.Log($"{x.Key}が{x.OldValue}から{x.NewValue}に変わったよ!");
                 });
         }
@@ -146,8 +144,10 @@ namespace Assets.MyAssets.Field.Scripts.Players
             SetPlayerParameter(playerGear);
         }
         
-        public void InitializePlayer()
+        public void InitializePlayer(PlayerId id, IGameStateProvider gameStateProvider)
         {
+            _playerId = id;
+            _gameStateProvider = gameStateProvider;
             _onInitializeAsyncSubject.OnNext(_defaultPlayerParameter);
             _onInitializeAsyncSubject.OnCompleted();
         }

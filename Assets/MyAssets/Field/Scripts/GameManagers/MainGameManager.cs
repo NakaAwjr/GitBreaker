@@ -12,11 +12,12 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
 
         public IReadOnlyReactiveProperty<GameState> CurrentGameState => _currentState;
 
+        private PlayerProvider _playerProvider;
         private TimeManager _timeManager;
 
         void Start()
         {
-            //playerProvider = GetComponent<PlayerProvider>();
+            _playerProvider = GetComponent<PlayerProvider>();
             _timeManager = GetComponent<TimeManager>();
 
             _currentState.Subscribe(state =>
@@ -50,7 +51,16 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
 
             IEnumerator InitCoroutine()
             {
-                yield break;
+                //ここでプレイヤーの生成等行います。
+                _playerProvider.CreatePlayer(
+                    PlayerId.Player1,
+                    Vector3.zero,
+                    this
+                );
+                
+                yield return null;
+                
+                _currentState.Value = GameState.Ready;
             }
 
             IEnumerator ReadyCoroutine()
