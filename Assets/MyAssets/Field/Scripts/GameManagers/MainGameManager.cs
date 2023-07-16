@@ -16,12 +16,15 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
         private PlayerProvider _playerProvider;
         private TimeManager _timeManager;
         private EnemyManager _enemyManager;
+        private Scene.Field _field;
+        private PlayerCore _playerCore;
 
         void Start()
         {
             _playerProvider = GetComponent<PlayerProvider>();
             _timeManager = GetComponent<TimeManager>();
             _enemyManager = GetComponent<EnemyManager>();
+            _field = GetComponent<Scene.Field>();
 
             _currentState.Subscribe(state =>
             {
@@ -42,9 +45,6 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
                 case GameState.Search:
                     Search();
                     break;
-                case GameState.Result:
-                    Result();
-                    break;
                 case GameState.Finish:
                     Finish();
                     break;
@@ -55,7 +55,7 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
             IEnumerator InitCoroutine()
             {
                 //ここでプレイヤーの生成等行います。
-                _playerProvider.CreatePlayer(
+                _playerCore = _playerProvider.CreatePlayer(
                     PlayerId.Player1,
                     Vector3.zero,
                     this
@@ -81,23 +81,18 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
                 _timeManager.SearchSecond
                     .FirstOrDefault(x => x == 0)
                     .Delay(TimeSpan.FromSeconds(2))
-                    .Subscribe(_ => _currentState.Value = GameState.Result);
+                    .Subscribe(_ => _currentState.Value = GameState.Finish);
                 
                 _enemyManager.IsAlive
                     .Where(x => !x)
-                    .Subscribe(_ => _currentState.Value = GameState.Result);
+                    .Subscribe(_ => _currentState.Value = GameState.Finish);
                 _timeManager.StartBattleCountDown();
                 _enemyManager.StartMonitorBoss();
             }
 
-            void Result()
-            {
-                Debug.Log("Result");
-            }
-
             void Finish()
             {
-                
+                _field.SceneLoad(_enemyManager.IsAlive.Value,_playerCore.IsAlive.Value);
             }
         }
     }

@@ -11,7 +11,6 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
         Init,
         Ready,
         Search,
-        Result,
         Finish
     }
     

@@ -8,16 +8,16 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
 {
     public class EnemyManager : MonoBehaviour
     {
-        private ReactiveProperty<bool> _isAlive = new ReactiveProperty<bool>(false);
+        private ReactiveProperty<bool> _isAlive = new ReactiveProperty<bool>(true);
         public ReactiveProperty<bool> IsAlive => _isAlive;
 
         public void StartMonitorBoss()
         {
             GameObject.FindWithTag("Boss").GetComponent<EnemyCore>().IsAlive
-                .Where(x => !x)
-                .Subscribe(x =>
+                .Where(x => x == false)
+                .Subscribe(_ =>
                 {
-                    _isAlive.Value = x;
+                    _isAlive.Value = false;
                 });
         }
     }
