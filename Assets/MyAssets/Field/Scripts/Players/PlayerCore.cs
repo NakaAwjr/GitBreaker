@@ -49,6 +49,7 @@ namespace Assets.MyAssets.Field.Scripts.Players
                 .Subscribe(x =>
                 {
                     _currentPlayerParameter["Hp"] -= x.AttackValue - _currentPlayerParameter["Defence"];
+                    Debug.Log(_currentPlayerParameter["Hp"]);
                 });
             
             _onInitializeAsyncSubject
