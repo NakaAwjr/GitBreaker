@@ -16,5 +16,11 @@ public class Test : MonoBehaviour
     {
         _playerCore.InitializePlayer();
         _playerCore.EquipGear(_playerGear);
+        
+        _playerCore.CurrentPlayerParameter.ObserveReplace()
+            .Subscribe(x =>
+            {
+                Debug.Log($"{x.Key}が{x.OldValue}から{x.NewValue}に変わったよ!");
+            });
     }
 }

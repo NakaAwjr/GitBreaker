@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.MyAssets.Field.Scripts.Items;
 using UnityEngine;
+using UniRx;
 
 namespace Assets.MyAssets.Field.Scripts.Players
 {
@@ -9,36 +11,31 @@ namespace Assets.MyAssets.Field.Scripts.Players
     /// </summary>
     public class PlayerItem : BasePlayerComponent
     {
-        private Coroutine _currentCoroutine;
+        private float _pickUpWaitSeconds = 0.2f;
+        private bool _pickUp;
         
         protected override void OnInitialize()
         {
-            /*
+            _pickUp = true;
             PlayerCore.OnPickUpItem
+                .Where(_ => _pickUp)
                 .Subscribe(item =>
                 {
                     ChangePlayerStatus(item);
-                });*/
+                    StartCoroutine(PickUpCoroutine());
+                });
         }
         
-        /*private void ChangePlayerStatus(ItemEffect item)
+        private void ChangePlayerStatus(ItemEffect item)
         {
-            PlayerCore.ResetPlayerParameter();
-
-            if (_currentCoroutine != null)
-            {
-                StopCoroutine(_currentCoroutine);
-            }
-            _currentCoroutine = StartCoroutine(ItemCoroutine(item));
+            PlayerCore.AddPlayerParameter(item.UpStates);
         }
 
-        private IEnumerator ItemCoroutine(ItemEffect item)
+        private IEnumerator PickUpCoroutine()
         {
-            PlayerCore.SetPlayerParameter(item.PowerUpParameters);
-
-            yield return new WaitForSeconds(item.DurationTime);
-
-            PlayerCore.ResetPlayerParameter();
-        }*/
+            _pickUp = false;
+            yield return new WaitForSeconds(_pickUpWaitSeconds);
+            _pickUp = true;
+        }
     }
 }
