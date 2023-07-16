@@ -15,7 +15,7 @@ namespace Assets.MyAssets.Field.Scripts.Enemies
         [SerializeField]
         private CharacterStates _defaultEnemyParameter;
         
-        private ReactiveDictionary<string, int> _currentEnemyParameter;
+        private ReactiveDictionary<string, int> _currentEnemyParameter = new ReactiveDictionary<string, int>();
         public ReactiveDictionary<string, int> CurrentEnemyParameter => _currentEnemyParameter;
         
         private ReactiveProperty<bool> _isAlive = new BoolReactiveProperty(true);
@@ -32,6 +32,8 @@ namespace Assets.MyAssets.Field.Scripts.Enemies
 
         void Awake()
         {
+            SetEnemyParameter(_defaultEnemyParameter);
+            
             OnDamaged.Where(x => 0 < x.AttackValue - _currentEnemyParameter["Defence"])
                 .Subscribe(x =>
                 {

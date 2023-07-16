@@ -4,8 +4,11 @@ using UnityEngine;
 
 namespace Assets.MyAssets.Field.Scripts.Enemies
 {
-    public class EnemyAttack : MonoBehaviour
+    public class EnemyAttack : BaseEnemyComponent
     {
-        
+        protected override void OnInitialize()
+        {
+            
+        }
     }
 }
