@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Treasure : MonoBehaviour
 {
@@ -36,7 +37,8 @@ public class Treasure : MonoBehaviour
             var pos = transform.position;
             pos.x += Random.Range(-3f, 3f);
             pos.y += Random.Range(-3f, 3f);
-            Instantiate(Item[Random.Range(0,Item.Count)], pos, transform.rotation);
+            GameObject _dropedItem = Instantiate(Item[Random.Range(0,Item.Count)], transform.position, transform.rotation);
+            _dropedItem.transform.DOJump(pos, jumpPower: 5f, numJumps: 2, duration: 2f);
         }
         
     }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8830932570220788138}
   - component: {fileID: 5009693181790974850}
   - component: {fileID: 8044192044957705427}
+  - component: {fileID: 1231727061438128667}
   m_Layer: 0
   m_Name: Treasure
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8830932570220788138
 SpriteRenderer:
@@ -139,3 +140,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3.84
+--- !u!114 &1231727061438128667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7177269455953980849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9befe487ce5c94f41831ae34746d5389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
