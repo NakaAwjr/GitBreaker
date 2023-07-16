@@ -24,10 +24,14 @@ namespace Assets.MyAssets.Field.Scripts.Players
             this.FixedUpdateAsObservable()
                 .Subscribe(_ =>
                 {
-                    _rigidbody.velocity = _inputDirection * PlayerCore.CurrentPlayerParameter["Speed"] * 0.5f;
-                    if (_inputDirection != Vector3.zero)
+                    if (_inputDirection * PlayerCore.CurrentPlayerParameter["Speed"] != null)
                     {
-                        transform.rotation = Quaternion.Euler(0, 0, VectorToAngle(new Vector2(_inputDirection.x,_inputDirection.y)) - 90f);
+                        _rigidbody.velocity = _inputDirection * PlayerCore.CurrentPlayerParameter["Speed"] * 0.5f;
+                        if (_inputDirection != Vector3.zero)
+                        {
+                            transform.rotation = Quaternion.Euler(0, 0,
+                                VectorToAngle(new Vector2(_inputDirection.x, _inputDirection.y)) - 90f);
+                        }
                     }
                 });
         }

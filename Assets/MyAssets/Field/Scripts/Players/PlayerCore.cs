@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.MyAssets.Field.Scripts.Damages;
+using Assets.MyAssets.Field.Scripts.Items;
+using Assets.MyAssets.Field.Scripts.Items.Impless;
 using Assets.MyAssets.Field.Scripts.States;
 using UniRx;
 using UniRx.Triggers;
@@ -25,7 +27,7 @@ namespace Assets.MyAssets.Field.Scripts.Players
         [SerializeField]
         private CharacterStates _defaultPlayerParameter;
 
-        private ReactiveDictionary<string, int> _currentPlayerParameter;
+        private ReactiveDictionary<string, int> _currentPlayerParameter = new ReactiveDictionary<string, int>();
         public ReactiveDictionary<string, int> CurrentPlayerParameter => _currentPlayerParameter;
         
         private ReactiveProperty<bool> _isAlive = new BoolReactiveProperty(true);
@@ -34,8 +36,8 @@ namespace Assets.MyAssets.Field.Scripts.Players
         private readonly AsyncSubject<CharacterStates> _onInitializeAsyncSubject = new AsyncSubject<CharacterStates>();
         public IObservable<CharacterStates> OnInitializeAsync => _onInitializeAsyncSubject;
         
-        //private Subject<ItemEffect> _pickUpItemSubject = new Subject<ItemEffect>();
-        //public IObservable<ItemEffect> OnPickUpItem => _pickUpItemSubject;
+        private Subject<ItemEffect> _pickUpItemSubject = new Subject<ItemEffect>();
+        public IObservable<ItemEffect> OnPickUpItem => _pickUpItemSubject;
         
         private ReactiveProperty<PlayerGear> _currentPlayerGear = new ReactiveProperty<PlayerGear>();
         public IReadOnlyReactiveProperty<PlayerGear> CurrentPlayerGear => _currentPlayerGear;
@@ -74,12 +76,20 @@ namespace Assets.MyAssets.Field.Scripts.Players
                 .Where(__ => IsAlive.Value)
                 .Subscribe(x =>
                 {
-                    /*var i = x.GetComponent<ItemBase>();
+                    var i = x.GetComponent<ItemBase>();
                     if (i != null)
                     {
+                        Debug.Log("拾ったz");
                         _pickUpItemSubject.OnNext(i.ItemEffect);
-                        i.ActivateEffect();
-                    }*/
+                        i.PickedUp();
+                    }
+                });
+            
+            CurrentPlayerParameter.ObserveReplace()
+                .Subscribe(x =>
+                {
+                    Debug.Log("hoge");
+                    Debug.Log($"{x.Key}が{x.OldValue}から{x.NewValue}に変わったよ!");
                 });
         }
         
@@ -110,6 +120,20 @@ namespace Assets.MyAssets.Field.Scripts.Players
             _currentPlayerParameter["MagicDefence"] = parameters.MagicDefence;
             _currentPlayerParameter["Speed"] = parameters.Speed;
         }
+        
+        public void AddPlayerParameter(CharacterStates parameters)
+        {
+            Debug.Log($"{_currentPlayerParameter["Hp"]}に{parameters.Hp}を加えるぞ！");
+            _currentPlayerParameter["Hp"] += parameters.Hp;
+            _currentPlayerParameter["Power"] += parameters.Power;
+            _currentPlayerParameter["Defence"] += parameters.Defence;
+            _currentPlayerParameter["MagicPoint"] += parameters.MagicPoint;
+            _currentPlayerParameter["MagicPower"] += parameters.MagicPower;
+            _currentPlayerParameter["MagicDefence"] += parameters.MagicDefence;
+            _currentPlayerParameter["Speed"] += parameters.Speed;
+            Debug.Log($"{_currentPlayerParameter["Hp"]}になったぞ！");
+        }
+
 
         public void EquipGear(PlayerGear gear)
         {
