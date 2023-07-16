@@ -74,7 +74,7 @@ namespace Assets.MyAssets.Field.Scripts.Players
                     
                     _currentPlayerParameter.ObserveReplace()
                         .Where(y => y.Key == "Hp" && y.NewValue <= 0)
-                        .Subscribe(x =>
+                        .Subscribe(_ =>
                         {
                             _isAlive.Value = false;
                         });

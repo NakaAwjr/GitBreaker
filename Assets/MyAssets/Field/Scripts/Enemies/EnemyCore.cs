@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.MyAssets.Field.Scripts.Enemies
 {
-    public class EnemyCore : MonoBehaviour
+    public class EnemyCore : MonoBehaviour ,IDamageable
     {
         private EnemyType _enemyType;
         public EnemyType EnemyType => _enemyType;
@@ -35,13 +35,12 @@ namespace Assets.MyAssets.Field.Scripts.Enemies
 
         void Awake()
         {
-            SetEnemyParameter(_defaultEnemyParameter);
-            EquipGear(_defaultEnemyGear);
-            
             OnDamaged.Where(x => 0 < x.AttackValue - _currentEnemyParameter["Defence"])
                 .Subscribe(x =>
                 {
+                    Debug.Log($"{_currentEnemyParameter["Hp"]}!");
                     _currentEnemyParameter["Hp"] -= x.AttackValue - _currentEnemyParameter["Defence"];
+                    Debug.Log($"{_currentEnemyParameter["Hp"]}!");
                 });
             
             _onInitializeAsyncSubject
@@ -58,9 +57,24 @@ namespace Assets.MyAssets.Field.Scripts.Enemies
                         {"Speed", x.Speed}
                     };
                     
-                    IsAlive.Where(y => y).Skip(1)
-                        .Subscribe(_ => { Debug.Log("いくぞ！"); });
+                    _currentEnemyParameter.ObserveReplace()
+                        .Where(y => y.Key == "Hp" && y.NewValue <= 0)
+                        .Subscribe(_ =>
+                        {
+                            Debug.Log($"{_currentEnemyParameter["Hp"]}!");
+                            _isAlive.Value = false;
+                        });
+
+                    IsAlive.Where(y => !y)
+                        .Subscribe(_ => gameObject.SetActive(false));
                 });             
+        }
+
+        void Start()
+        {
+            SetEnemyParameter(_defaultEnemyParameter);
+            EquipGear(_defaultEnemyGear);
+            InitializeEnemy();
         }
         
         public void DealDamage(Damage damage)

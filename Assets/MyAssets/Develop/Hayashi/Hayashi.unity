@@ -135,10 +135,10 @@ GameObject:
   - component: {fileID: 61946150}
   - component: {fileID: 61946148}
   - component: {fileID: 61946154}
-  - component: {fileID: 61946153}
   - component: {fileID: 61946152}
   - component: {fileID: 61946156}
   - component: {fileID: 61946155}
+  - component: {fileID: 61946157}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Boss
@@ -261,19 +261,6 @@ MonoBehaviour:
     Body: {fileID: 11400000, guid: ecf10212a5f2d46f6a7ec971fb2fbbf3, type: 2}
     Legs: {fileID: 11400000, guid: 7b7037445197f4c15866ec8a54eb21bb, type: 2}
     EnemyWeapon: {fileID: 498374068}
---- !u!114 &61946153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 61946146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe3f10c69c3cb45c091a80070936d394, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyMover: {fileID: 61946154}
 --- !u!114 &61946154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +321,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 565898d96683d40c29b497402c00c630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &61946157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61946146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe3f10c69c3cb45c091a80070936d394, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyMover: {fileID: 61946154}
 --- !u!1 &94150499
 GameObject:
   m_ObjectHideFlags: 0
