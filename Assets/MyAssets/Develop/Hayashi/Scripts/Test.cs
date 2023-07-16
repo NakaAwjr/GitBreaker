@@ -14,7 +14,7 @@ public class Test : MonoBehaviour
 
     void Start()
     {
-        _playerCore.InitializePlayer();
+        //_playerCore.InitializePlayer();
         _playerCore.EquipGear(_playerGear);
         
         _playerCore.CurrentPlayerParameter.ObserveReplace()

@@ -27,6 +27,9 @@ namespace Assets.MyAssets.Field.Scripts.Players
         [SerializeField]
         private CharacterStates _defaultPlayerParameter;
 
+        [SerializeField]
+        private PlayerGear _defaultGear;
+
         private ReactiveDictionary<string, int> _currentPlayerParameter = new ReactiveDictionary<string, int>();
         public ReactiveDictionary<string, int> CurrentPlayerParameter => _currentPlayerParameter;
         
@@ -67,6 +70,8 @@ namespace Assets.MyAssets.Field.Scripts.Players
                         {"MagicDefence", x.MagicDefence},
                         {"Speed", x.Speed}
                     };
+                    
+                    EquipGear(_defaultGear);
                     
                     IsAlive.Where(y => y).Skip(1)
                         .Subscribe(_ => { Debug.Log("いくぞ！"); });
