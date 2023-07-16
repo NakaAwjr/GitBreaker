@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using Assets.MyAssets.Field.Scripts.Attacks;
 using Assets.MyAssets.Field.Scripts.Attacks.Attackers;
-using Assets.MyAssets.Field.Scripts.Players;
-using Assets.MyAssets.Field.Scripts.States;
 using UniRx;
 using UnityEngine;
 
