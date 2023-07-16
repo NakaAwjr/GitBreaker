@@ -1,3 +1,4 @@
+using Assets.MyAssets.Field.Scripts.GameManagers;
 using UniRx;
 
 namespace Assets.MyAssets.Field.Scripts.Players
@@ -7,6 +8,6 @@ namespace Assets.MyAssets.Field.Scripts.Players
     /// </summary>
     public interface IGameStateProvider
     {
-        //IReadOnlyReactiveProperty<GameState> CurrentGameState { get; }
+        IReadOnlyReactiveProperty<GameState> CurrentGameState { get; }
     }
 }
