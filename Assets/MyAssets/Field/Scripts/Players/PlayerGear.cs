@@ -1,5 +1,6 @@
 using System;
 using Assets.MyAssets.Field.Scripts.States;
+using Assets.MyAssets.Field.Scripts.Weapons;
 
 namespace Assets.MyAssets.Field.Scripts.Players
 {
@@ -12,6 +13,6 @@ namespace Assets.MyAssets.Field.Scripts.Players
         public CharacterStates Head;
         public CharacterStates Body;
         public CharacterStates Legs;
-        //public Weapon PlayerWeapon;
+        public BaseWeapon PlayerWeapon;
     }
 }

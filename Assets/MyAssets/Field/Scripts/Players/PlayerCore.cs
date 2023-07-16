@@ -37,7 +37,7 @@ namespace Assets.MyAssets.Field.Scripts.Players
         //private Subject<ItemEffect> _pickUpItemSubject = new Subject<ItemEffect>();
         //public IObservable<ItemEffect> OnPickUpItem => _pickUpItemSubject;
         
-        private ReactiveProperty<PlayerGear> _currentPlayerGear;
+        private ReactiveProperty<PlayerGear> _currentPlayerGear = new ReactiveProperty<PlayerGear>();
         public IReadOnlyReactiveProperty<PlayerGear> CurrentPlayerGear => _currentPlayerGear;
         
         private Subject<Damage> _damageSubject = new Subject<Damage>();
@@ -45,8 +45,6 @@ namespace Assets.MyAssets.Field.Scripts.Players
 
         void Awake()
         {
-            InitializePlayer();
-            
             OnDamaged.Where(x => 0 < x.AttackValue - _currentPlayerParameter["Defence"])
                 .Subscribe(x =>
                 {

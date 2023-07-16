@@ -17,16 +17,48 @@ namespace Assets.MyAssets.Field.Scripts.Players
                 .Where(_ => PlayerCore.IsAlive.Value)
                 .Subscribe(_ =>
                 {
-                    /*CharacterStates afterStates = PlayerCore.CurrentPlayerGear.Value.Weapon.AttackNormal(PlayerCore.CurrentPlayerParameter);
-                    PlayerCore.SetPlayerParameter(afterStates);*/
+                    Debug.Log(PlayerCore.CurrentPlayerGear.Value.PlayerWeapon);
+                    if (PlayerCore.CurrentPlayerGear.Value.PlayerWeapon != null)
+                    {
+                        ReactiveDictionary<string, int> afterStates = PlayerCore.CurrentPlayerGear.Value.PlayerWeapon.AttackNormal(PlayerCore.CurrentPlayerParameter);
+                        CharacterStates afterParameter = new CharacterStates();
+                        afterParameter.SetValue(
+                            hp:afterStates["Hp"],
+                            power:afterStates["Power"],
+                            defence:afterStates["Defence"],
+                            magicPoint:afterStates["MagicPoint"],
+                            magicPower:afterStates["MagicPower"],
+                            magicDefence:afterStates["MagicDefence"]
+                            ,speed:afterStates["Speed"]
+                        );
+                    
+                        PlayerCore.SetPlayerParameter(afterParameter);
+                    }
                 });
             
             InputProvider.OnSpecialAttackButtonPushed
                 .Where(_ => PlayerCore.IsAlive.Value)
                 .Subscribe(_ =>
                 {
-                    /*CharacterStates afterStates = PlayerCore.CurrentPlayerGear.Value.Weapon.AttackSpecial(PlayerCore.CurrentPlayerParameter);
-                    PlayerCore.SetPlayerParameter(afterStates);*/
+                    if (PlayerCore.CurrentPlayerGear.Value.PlayerWeapon != null)
+                    {
+                        ReactiveDictionary<string, int> afterStates =
+                            PlayerCore.CurrentPlayerGear.Value.PlayerWeapon.AttackSpecial(PlayerCore
+                                .CurrentPlayerParameter);
+                        CharacterStates afterParameter = new CharacterStates();
+
+                        afterParameter.SetValue(
+                            hp: afterStates["Hp"],
+                            power: afterStates["Power"],
+                            defence: afterStates["Defence"],
+                            magicPoint: afterStates["MagicPoint"],
+                            magicPower: afterStates["MagicPower"],
+                            magicDefence: afterStates["MagicDefence"]
+                            , speed: afterStates["Speed"]
+                        );
+
+                        PlayerCore.SetPlayerParameter(afterParameter);
+                    }
                 });
         }
     }

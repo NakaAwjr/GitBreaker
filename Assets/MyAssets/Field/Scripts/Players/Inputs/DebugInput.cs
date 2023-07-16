@@ -52,7 +52,7 @@ namespace Assets.MyAssets.Field.Scripts.Players.Inputs
                 .Subscribe(x => _onItemButtonPushed.Value = x);
             
             this.UpdateAsObservable()
-                .Select(_ => Input.GetKeyDown(KeyCode.N))
+                .Select(_ => Input.GetKeyDown(KeyCode.Z))
                 .DistinctUntilChanged()
                 .Subscribe(x => _onNormalAttackButtonPushed.Value = x);
             

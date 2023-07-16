@@ -1,5 +1,6 @@
 //using Assets.MyAssets.Scripts.Attacks;
 using System;
+using Assets.MyAssets.Field.Scripts.Attacks;
 
 namespace Assets.MyAssets.Field.Scripts.Damages
 {
@@ -9,7 +10,7 @@ namespace Assets.MyAssets.Field.Scripts.Damages
     [Serializable]
     public struct Damage
     {
-        //public IAttacker Attacker;
+        public IAttacker Attacker;
         public int AttackValue;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.MyAssets.Field.Scripts.States;
+using UniRx;
 using UnityEngine;
 
 namespace Assets.MyAssets.Field.Scripts.Weapons
@@ -14,8 +15,8 @@ namespace Assets.MyAssets.Field.Scripts.Weapons
         public int Power;
         public float RecoverySecond;
 
-        protected abstract CharacterStates AttackNormal(CharacterStates currentStates);
-        protected abstract CharacterStates AttackSpecial(CharacterStates currentStates);
+        public abstract ReactiveDictionary<string, int> AttackNormal(ReactiveDictionary<string, int> currentStates);
+        public abstract ReactiveDictionary<string, int> AttackSpecial(ReactiveDictionary<string, int> currentStates);
     }
 }
 
