@@ -23,7 +23,8 @@ namespace Assets.MyAssets.Field.Scripts.Attacks.Imples
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var damageApplicable = other.gameObject.GetComponent<IDamageable>();
+            Debug.Log(other.gameObject.name);
+            var damageApplicable = other.gameObject.GetComponentInParent<IDamageable>();
             if (damageApplicable != null)
             {
                 damageApplicable.DealDamage(CalcDamage());

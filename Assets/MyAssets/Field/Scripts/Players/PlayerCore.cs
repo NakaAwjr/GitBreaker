@@ -54,7 +54,6 @@ namespace Assets.MyAssets.Field.Scripts.Players
                 .Subscribe(x =>
                 {
                     _currentPlayerParameter["Hp"] -= x.AttackValue - _currentPlayerParameter["Defence"];
-                    Debug.Log(_currentPlayerParameter["Hp"]);
                 });
             
             _onInitializeAsyncSubject
@@ -73,8 +72,15 @@ namespace Assets.MyAssets.Field.Scripts.Players
                     
                     EquipGear(_defaultGear);
                     
-                    IsAlive.Where(y => y).Skip(1)
-                        .Subscribe(_ => { Debug.Log("いくぞ！"); });
+                    _currentPlayerParameter.ObserveReplace()
+                        .Where(y => y.Key == "Hp" && y.NewValue <= 0)
+                        .Subscribe(_ =>
+                        {
+                            _isAlive.Value = false;
+                        });
+                    
+                    IsAlive.Where(y => !y)
+                        .Subscribe(_ => Destroy(this.gameObject));
                 });             
             
             this.OnTriggerEnter2DAsObservable()
@@ -87,12 +93,6 @@ namespace Assets.MyAssets.Field.Scripts.Players
                         _pickUpItemSubject.OnNext(i.ItemEffect);
                         i.PickedUp();
                     }
-                });
-            
-            CurrentPlayerParameter.ObserveReplace()
-                .Subscribe(x =>
-                {
-                    Debug.Log($"{x.Key}が{x.OldValue}から{x.NewValue}に変わったよ!");
                 });
         }
         

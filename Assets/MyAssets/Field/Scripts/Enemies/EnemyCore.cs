@@ -7,13 +7,16 @@ using UnityEngine;
 
 namespace Assets.MyAssets.Field.Scripts.Enemies
 {
-    public class EnemyCore : MonoBehaviour
+    public class EnemyCore : MonoBehaviour ,IDamageable
     {
         private EnemyType _enemyType;
         public EnemyType EnemyType => _enemyType;
         
         [SerializeField]
         private CharacterStates _defaultEnemyParameter;
+        
+        [SerializeField]
+        private EnemyGear _defaultEnemyGear;
         
         private ReactiveDictionary<string, int> _currentEnemyParameter = new ReactiveDictionary<string, int>();
         public ReactiveDictionary<string, int> CurrentEnemyParameter => _currentEnemyParameter;
@@ -32,12 +35,12 @@ namespace Assets.MyAssets.Field.Scripts.Enemies
 
         void Awake()
         {
-            SetEnemyParameter(_defaultEnemyParameter);
-            
             OnDamaged.Where(x => 0 < x.AttackValue - _currentEnemyParameter["Defence"])
                 .Subscribe(x =>
                 {
+                    Debug.Log($"{_currentEnemyParameter["Hp"]}!");
                     _currentEnemyParameter["Hp"] -= x.AttackValue - _currentEnemyParameter["Defence"];
+                    Debug.Log($"{_currentEnemyParameter["Hp"]}!");
                 });
             
             _onInitializeAsyncSubject
@@ -54,9 +57,24 @@ namespace Assets.MyAssets.Field.Scripts.Enemies
                         {"Speed", x.Speed}
                     };
                     
-                    IsAlive.Where(y => y).Skip(1)
-                        .Subscribe(_ => { Debug.Log("いくぞ！"); });
+                    _currentEnemyParameter.ObserveReplace()
+                        .Where(y => y.Key == "Hp" && y.NewValue <= 0)
+                        .Subscribe(_ =>
+                        {
+                            Debug.Log($"{_currentEnemyParameter["Hp"]}!");
+                            _isAlive.Value = false;
+                        });
+
+                    IsAlive.Where(y => !y)
+                        .Subscribe(_ => gameObject.SetActive(false));
                 });             
+        }
+
+        void Start()
+        {
+            SetEnemyParameter(_defaultEnemyParameter);
+            EquipGear(_defaultEnemyGear);
+            InitializeEnemy();
         }
         
         public void DealDamage(Damage damage)
@@ -90,9 +108,9 @@ namespace Assets.MyAssets.Field.Scripts.Enemies
         {
             CharacterStates enemyGear = ScriptableObject.CreateInstance<CharacterStates>();
             _currentEnemyGear.Value = gear;
-            /*enemyGear.AddValue(gear.Head);
+            enemyGear.AddValue(gear.Head);
             enemyGear.AddValue(gear.Body);
-            enemyGear.AddValue(gear.Legs);*/
+            enemyGear.AddValue(gear.Legs);
             enemyGear.SetValue(hp:CurrentEnemyParameter["Hp"],magicPoint:CurrentEnemyParameter["MagicPoint"]);
             SetEnemyParameter(enemyGear);
         }
