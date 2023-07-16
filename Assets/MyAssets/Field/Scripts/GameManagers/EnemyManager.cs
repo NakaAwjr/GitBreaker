@@ -13,12 +13,15 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
 
         public void StartMonitorBoss()
         {
-            GameObject.FindWithTag("Boss").GetComponent<EnemyCore>().IsAlive
-                .Where(x => x == false)
-                .Subscribe(_ =>
-                {
-                    _isAlive.Value = false;
-                });
+            if (GameObject.FindWithTag("Boss").GetComponent<EnemyCore>() != null)
+            {
+                GameObject.FindWithTag("Boss").GetComponent<EnemyCore>().IsAlive
+                    .Where(x => x == false)
+                    .Subscribe(_ =>
+                    {
+                        _isAlive.Value = false;
+                    });
+            }
         }
     }
 }

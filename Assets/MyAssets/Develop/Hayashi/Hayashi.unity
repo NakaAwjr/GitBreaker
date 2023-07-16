@@ -884,7 +884,7 @@ MonoBehaviour:
   _readySecond:
     value: 3
   _searchSecond:
-    value: 120
+    value: 10
 --- !u!114 &1259164527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1234,6 +1234,10 @@ PrefabInstance:
     - target: {fileID: 3779703921041465168, guid: 39849f6d5ab7b4adab0f543bbcee4366, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3779703921041465168, guid: 39849f6d5ab7b4adab0f543bbcee4366, type: 3}
+      propertyPath: m_TagString
+      value: Boss
       objectReference: {fileID: 0}
     - target: {fileID: 4580903014507831160, guid: 39849f6d5ab7b4adab0f543bbcee4366, type: 3}
       propertyPath: m_RootOrder

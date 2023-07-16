@@ -11,13 +11,13 @@ namespace Assets.MyAssets.Field.Scripts.Scene
     {
         public async Task SceneLoad(bool isAliveBoss,bool isAlivePlayer)
         {
-            Debug.Log($"Bossは{isAliveBoss}、プレイヤーは{isAlivePlayer}");
+            //Debug.Log($"Bossは{isAliveBoss}、プレイヤーは{isAlivePlayer}");
             // シーンBをロードしてコンポーネントを取得
-            //var nextScene = await SceneLoader.Load<Result>("Result");
+            var nextScene = await SceneLoader.Load<Result>("ResultScene");
 
             // 任意のメソッド呼び出し (タイミングはsceneBのAwakeの後、Startの前)
             // SceneAのGameObjectはDestroy済みでnullになるので注意
-            //nextScene.SetArguments(123, new List<string> { "abc", "あいうえお" });
+            nextScene.SetArguments(isAliveBoss,isAlivePlayer);
         }
     }
 }
