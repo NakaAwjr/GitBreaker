@@ -15,11 +15,13 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
 
         private PlayerProvider _playerProvider;
         private TimeManager _timeManager;
+        private EnemyManager _enemyManager;
 
         void Start()
         {
             _playerProvider = GetComponent<PlayerProvider>();
             _timeManager = GetComponent<TimeManager>();
+            _enemyManager = GetComponent<EnemyManager>();
 
             _currentState.Subscribe(state =>
             {
@@ -76,12 +78,21 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
 
             void Search()
             {
-                Debug.Log("Search");
+                _timeManager.SearchSecond
+                    .FirstOrDefault(x => x == 0)
+                    .Delay(TimeSpan.FromSeconds(2))
+                    .Subscribe(_ => _currentState.Value = GameState.Result);
+                
+                _enemyManager.IsAlive
+                    .Where(x => !x)
+                    .Subscribe(_ => _currentState.Value = GameState.Result);
+                _timeManager.StartBattleCountDown();
+                _enemyManager.StartMonitorBoss();
             }
 
             void Result()
             {
-                
+                Debug.Log("Result");
             }
 
             void Finish()

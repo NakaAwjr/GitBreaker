@@ -12,7 +12,7 @@ public class Test : MonoBehaviour
 
     void Start()
     {
-        _timeManager.ReadySecond.Subscribe(x =>
+        _timeManager.SearchSecond.Subscribe(x =>
         {
             Debug.Log($"残り{x}");
         });
