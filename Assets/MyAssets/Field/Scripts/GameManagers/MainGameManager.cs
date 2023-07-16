@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.MyAssets.Field.Scripts.Players;
@@ -34,7 +35,7 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
                     StartCoroutine(InitCoroutine());
                     break;
                 case GameState.Ready:
-                    StartCoroutine(ReadyCoroutine());
+                    Ready();
                     break;
                 case GameState.Search:
                     Search();
@@ -63,14 +64,19 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
                 _currentState.Value = GameState.Ready;
             }
 
-            IEnumerator ReadyCoroutine()
+            void Ready()
             {
-                yield break;
+                _timeManager.ReadySecond
+                    .FirstOrDefault(x => x == 0)
+                    .Delay(TimeSpan.FromSeconds(1))
+                    .Subscribe(_ => _currentState.Value = GameState.Search)
+                    .AddTo(gameObject);
+                _timeManager.StartGameReadyCountDown();
             }
 
             void Search()
             {
-                
+                Debug.Log("Search");
             }
 
             void Result()
