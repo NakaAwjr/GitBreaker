@@ -1,11 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
+using Assets.MyAssets.Field.Scripts.States;
+using Assets.MyAssets.Field.Scripts.Weapons;
 
 namespace Assets.MyAssets.Field.Scripts.Enemies
 {
-    public class EnemyGear : MonoBehaviour
+    [Serializable]
+    public struct EnemyGear
     {
-        
+        public CharacterStates Head;
+        public CharacterStates Body;
+        public CharacterStates Legs;
+        public BaseWeapon EnemyWeapon;
     }
 }
