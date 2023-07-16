@@ -1,20 +1,20 @@
 using System.Collections;
-using Assets.MyAssets.Field.Scripts.Attacks;
-using Assets.MyAssets.Field.Scripts.Attacks.Attackers;
 using Assets.MyAssets.Field.Scripts.Attacks.Imples;
 using Assets.MyAssets.Field.Scripts.Players;
 using UnityEngine;
+using UniRx;
 
 public class Test : MonoBehaviour
 {
     [SerializeField]
-    private GameObject hoge;
+    private PlayerCore _playerCore;
 
-    IEnumerator Start()
+    [SerializeField]
+    private PlayerGear _playerGear;
+
+    void Start()
     {
-        yield return new WaitForSeconds(3);
-        var physicsAttack = Instantiate(hoge, this.transform.position, this.transform.rotation)
-            .GetComponentInChildren<BaseAttack>();
-        physicsAttack.StartAttack(5,new PlayerAttacker(PlayerId.Player1));
+        _playerCore.InitializePlayer();
+        _playerCore.EquipGear(_playerGear);
     }
 }

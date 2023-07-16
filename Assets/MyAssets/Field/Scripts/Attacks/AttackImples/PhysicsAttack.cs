@@ -18,7 +18,7 @@ namespace Assets.MyAssets.Field.Scripts.Attacks.Imples
             this.UpdateAsObservable()
                 .Delay(TimeSpan.FromSeconds(_hitEffectDuration))
                 .FirstOrDefault()
-                .Subscribe(_ => Destroy(gameObject));
+                .Subscribe(_ => Destroy(transform.parent.gameObject));
         }
         
         private void OnTriggerEnter2D(Collider2D other)
