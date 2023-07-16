@@ -1,6 +1,5 @@
 using System.Collections;
 using Assets.MyAssets.Field.Scripts.Attacks.Imples;
-using Assets.MyAssets.Field.Scripts.GameManagers;
 using Assets.MyAssets.Field.Scripts.Players;
 using UnityEngine;
 using UniRx;
@@ -8,13 +7,14 @@ using UniRx;
 public class Test : MonoBehaviour
 {
     [SerializeField]
-    private TimeManager _timeManager;
-
+    private PlayerCore _playerCore;
+    
     void Start()
     {
-        _timeManager.SearchSecond.Subscribe(x =>
-        {
-            Debug.Log($"残り{x}");
-        });
+        GameObject.FindWithTag("Player").GetComponent<PlayerCore>().CurrentPlayerParameter.ObserveReplace()
+            .Subscribe(x =>
+            {
+                //Debug.Log($"{x.Key}が{x.OldValue}から{x.NewValue}に変わったよ!");
+            });
     }
 }

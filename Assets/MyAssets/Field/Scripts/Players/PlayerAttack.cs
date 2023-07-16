@@ -17,7 +17,6 @@ namespace Assets.MyAssets.Field.Scripts.Players
                 .Where(_ => PlayerCore.IsAlive.Value)
                 .Subscribe(_ =>
                 {
-                    Debug.Log(PlayerCore.CurrentPlayerGear.Value.PlayerWeapon);
                     if (PlayerCore.CurrentPlayerGear.Value.PlayerWeapon != null)
                     {
                         ReactiveDictionary<string, int> afterStates = PlayerCore.CurrentPlayerGear.Value.PlayerWeapon.AttackNormal(PlayerCore.CurrentPlayerParameter);

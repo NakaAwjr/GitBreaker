@@ -15,6 +15,9 @@ namespace Assets.MyAssets.Field.Scripts.Enemies
         [SerializeField]
         private CharacterStates _defaultEnemyParameter;
         
+        [SerializeField]
+        private EnemyGear _defaultEnemyGear;
+        
         private ReactiveDictionary<string, int> _currentEnemyParameter = new ReactiveDictionary<string, int>();
         public ReactiveDictionary<string, int> CurrentEnemyParameter => _currentEnemyParameter;
         
@@ -33,6 +36,7 @@ namespace Assets.MyAssets.Field.Scripts.Enemies
         void Awake()
         {
             SetEnemyParameter(_defaultEnemyParameter);
+            EquipGear(_defaultEnemyGear);
             
             OnDamaged.Where(x => 0 < x.AttackValue - _currentEnemyParameter["Defence"])
                 .Subscribe(x =>
@@ -90,9 +94,9 @@ namespace Assets.MyAssets.Field.Scripts.Enemies
         {
             CharacterStates enemyGear = ScriptableObject.CreateInstance<CharacterStates>();
             _currentEnemyGear.Value = gear;
-            /*enemyGear.AddValue(gear.Head);
+            enemyGear.AddValue(gear.Head);
             enemyGear.AddValue(gear.Body);
-            enemyGear.AddValue(gear.Legs);*/
+            enemyGear.AddValue(gear.Legs);
             enemyGear.SetValue(hp:CurrentEnemyParameter["Hp"],magicPoint:CurrentEnemyParameter["MagicPoint"]);
             SetEnemyParameter(enemyGear);
         }
