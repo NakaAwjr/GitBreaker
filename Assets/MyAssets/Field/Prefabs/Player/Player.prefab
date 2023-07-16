@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 7177868291484786448}
   - component: {fileID: 1896708962947492558}
   - component: {fileID: 3098158357271676037}
-  - component: {fileID: 2794126706941604401}
   - component: {fileID: 6288207063988389436}
   - component: {fileID: 3984227287063333048}
   - component: {fileID: 5872560592834784751}
@@ -125,7 +124,7 @@ Transform:
   - {fileID: 6849894572334933221}
   - {fileID: 1965315791185750113}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1896708962947492558
 SpriteRenderer:
@@ -192,20 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultPlayerParameter: {fileID: 11400000, guid: 8b4cad872dd49460c8d229b464bbea8d, type: 2}
---- !u!114 &2794126706941604401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6498472061642702065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 360749cd86fe84520a8170bfb672b021, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerCore: {fileID: 3098158357271676037}
-  _playerGear:
+  _defaultGear:
     Head: {fileID: 11400000, guid: 3ace51e84965247809ef5bd821665d44, type: 2}
     Body: {fileID: 11400000, guid: ecf10212a5f2d46f6a7ec971fb2fbbf3, type: 2}
     Legs: {fileID: 11400000, guid: 7b7037445197f4c15866ec8a54eb21bb, type: 2}
