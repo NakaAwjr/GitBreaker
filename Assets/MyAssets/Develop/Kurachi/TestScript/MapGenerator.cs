@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    GameObject[,] MapGrid = new GameObject[50,50];
+    [SerializeField]int MaxMapSize=50;
+    [SerializeField]int MaxRoom = 150;
+    [SerializeField] GameObject Room;
+    GameObject[,] MapGrid;
     int[] currentPosition = new int[2];
     int[] nextDirectionVec = new int[2];
     int   nextDirection = 0;
     int[] nextPosition = new int[2];
     int[] pastPosition = new int[2];
     int CntRoom = 0;
-    int MaxRoom = 150;
-    [SerializeField] GameObject Room;
 
     void Start(){
+        MapGrid = new GameObject[MaxMapSize,MaxMapSize];
+        GenerateMap();
+    }
+    void GenerateMap()
+    {
         SetCurrentPosition((int)(MapGrid.GetLength(0)/2),0);
         CreateRoom();
         do{
@@ -31,8 +37,6 @@ public class MapGenerator : MonoBehaviour
                 CreateRoot();
             }
         }while(!CheckMaxRoom());
-        Show();
-        
     }
 
     void SelectRoot(){
@@ -56,15 +60,12 @@ public class MapGenerator : MonoBehaviour
                 nextDirectionVec[1] = 1;
                 break;
         }
-        // Debug.Log("[Debug] SelectRoot "+direction);
     }
     void CreateRoom(){
-        
         Vector3 pos = new Vector3(currentPosition[0]*10,currentPosition[1]*10,0);
         var Roomobj = Instantiate(Room,pos,transform.rotation);
         MapGrid[currentPosition[0],currentPosition[1]] = Roomobj;
         CntRoom++;
-        // Debug.Log("[Debug] CreateRoom "+currentPosition[0]+" "+currentPosition[1]);
     }
     void CreateRoot(){
         GameObject currentRoom = MapGrid[currentPosition[0],currentPosition[1]];
@@ -72,72 +73,50 @@ public class MapGenerator : MonoBehaviour
         Destroy(pastRoom.transform.GetChild(2).transform.GetChild(nextDirection).gameObject);
         if(nextDirection%2==0){
             Destroy(currentRoom.transform.GetChild(2).transform.GetChild(nextDirection+1).gameObject);    
-            Debug.Log("[Debug] CreateRoot "+nextDirection+" "+(nextDirection+1));
         }else{
             Destroy(currentRoom.transform.GetChild(2).transform.GetChild(nextDirection-1).gameObject);    
-            Debug.Log("[Debug] CreateRoot "+nextDirection+" "+(nextDirection-1));
         }
-        
     }
     bool CheckWall(){
-        // Debug.Log("[Debug]CheckWall");
         int tempNextPosX = currentPosition[0]+nextDirectionVec[0];
         int tempNextPosY = currentPosition[1]+nextDirectionVec[1];
-        // Debug.Log("[Debug]CheckWall X:"+tempNextPosX+" Y:"+tempNextPosY);
         bool isWallX=(0<=tempNextPosX && tempNextPosX<MapGrid.GetLength(0));
         bool isWallY=(0<=tempNextPosY && tempNextPosY<MapGrid.GetLength(1));
-        // Debug.Log("[Debug]CheckWall :"+(isWallX&&isWallY));
         return isWallX && isWallY;
     }
     bool CheckRoot(){
-        // Debug.Log("[Debug] CheckRoot");
         GameObject currentobj = MapGrid[currentPosition[0],currentPosition[1]];
         if(currentobj == null){
-            // Debug.Log("currentObj == null");
-            // Debug.Log("CheckRoot CPX:"+currentPosition[0]+" CPY:"+currentPosition[1]);
             return false;
         }
-        // Debug.Log("[Debug] CheckRoot" + currentobj.transform.Find("root").gameObject.GetComponent<fillRoot>().getIsRoot(nextDirection));
         return currentobj.transform.Find("root").gameObject.GetComponent<fillRoot>().getIsRoot(nextDirection);
     }
     bool CheckRoom(){
-        // Debug.Log("[Debug] CheckRoom");
         int tempNextPosX = currentPosition[0];
         int tempNextPosY = currentPosition[1];
-        // Debug.Log("[Debug] CheckRoom XY " + (currentPosition[0]+nextDirectionVec[0]) + " " + (currentPosition[1]+nextDirectionVec[1]));
         if(MapGrid[tempNextPosX,tempNextPosY] == null){
             return false;
         }
         else{
-           return true;
+            return true;
         }
-        
     }
     bool CheckMaxRoom(){
-        
         if(MaxRoom <= CntRoom){
-            // Debug.Log("[Debug] CheckMaxRoom true");    
             return true;
         } else {
-            // Debug.Log("[Debug] CheckMaxRoom false");
             return false;
         }
     }
-    /* bool CheckFillRoot(){
-
-    }*/
     void SetCurrentPosition(int x,int y){
         pastPosition[0] = currentPosition[0];
         pastPosition[1] = currentPosition[1];
         currentPosition[0] = x;
         currentPosition[1] = y;
-        // Debug.Log("[Debug] SetCurrentPosition" + currentPosition[0] + " " + currentPosition[1]);
     }
     void SetNextPosition(){
-        // Debug.Log("[Debug] SetNextPosition");
         nextPosition[0] = currentPosition[0]+nextDirectionVec[0];
         nextPosition[1] = currentPosition[1]+nextDirectionVec[1];
-        // Debug.Log("[Debug] SetCurrentPosition" + currentPosition[0]+nextDirectionVec[0] + " " + currentPosition[1]+nextDirectionVec[1]);
     }
     void Show(){
         string str="";
@@ -153,6 +132,5 @@ public class MapGenerator : MonoBehaviour
             }
             str = str + "\n";
         }
-        // Debug.Log(str);
     }
 }
