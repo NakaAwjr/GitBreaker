@@ -7,18 +7,25 @@ using UnityEngine.UI;
 public class MoveManager : MonoBehaviour
 {
     [SerializeField] private GameObject _title;
+
     [SerializeField] private GameObject _selectroom;
     [SerializeField] private CanvasGroup _selectroomcanvas;
+
     [SerializeField] private GameObject _visitroom;
     [SerializeField] private GameObject _createroom;
+
     [SerializeField] private GameObject _roading;
     [SerializeField] private Image _roadingbackground;
     [SerializeField] private GameObject _roadingbackgroundobject;
+
     [SerializeField] private GameObject _maching;
+
+    [SerializeField] private GameObject _error;
     
     public PhotonManager PhotonManager;
     public MachingManager MachingManager;
 
+    //アニメーションの速さ
     [SerializeField] private float _speed = 0.5f;
 
     // Start is called before the first frame update
@@ -42,6 +49,9 @@ public class MoveManager : MonoBehaviour
 
         _maching.SetActive(false);
         _maching.transform.position = new Vector3(0, 10, 0);
+
+        _error.SetActive(false);
+        _error.transform.position = new Vector3(0, 10, 0);
     }
 
     //タイトルが消えたあと
@@ -91,7 +101,30 @@ public class MoveManager : MonoBehaviour
         _roadingbackground.DOFade(0.5f, _speed);
         _roading.SetActive(true);
         _roading.transform.DOMove(new Vector3(0, 0, 0), _speed).SetEase(Ease.InOutBack);
+        //Photonに接続
         PhotonManager.StartConnect(iscreate);
+    }
+
+    //エラー画面
+    public void Error()
+    {
+        _error.SetActive(true);
+        _error.transform.DOMove(new Vector3(0, 0, 0), _speed).SetEase(Ease.InOutBack);
+    }
+    public void ClickBack()
+    {
+        _error.transform.DOMove(new Vector3(0, 10, 0), _speed).SetEase(Ease.InBack).onComplete = () =>
+        {
+            _roading.transform.DOMove(new Vector3(0, 10, 0), _speed).SetEase(Ease.InBack).onComplete = () =>
+            {
+                _roadingbackground.DOFade(0.0f, _speed).onComplete = () =>
+                {
+                    _error.SetActive(false);
+                    _roading.SetActive(false);
+                    _roadingbackgroundobject.SetActive(false);
+                };
+            };
+        };
     }
 
     //マッチング画面へ移行
@@ -111,7 +144,7 @@ public class MoveManager : MonoBehaviour
     {
         _maching.SetActive(true);  
         MachingManager.StartMaching();
-        MachingManager.SetPlayerCount();
+
         _maching.transform.DOMove(new Vector3(0, 0, 0), _speed).onComplete = () =>
         {
             _createroom.SetActive(false);

@@ -39,6 +39,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Debug.Log("JoinRandomRoom");
             PhotonNetwork.JoinRandomRoom();
         }
+        else if (!_iscreate && ValueManager.SearchRoomID == "" && !ValueManager.IsRandom)
+        {
+            MoveManager.Error();
+        }
         else if (!_iscreate && !ValueManager.IsRandom)
         {
             Debug.Log("JoinRoom");
@@ -46,8 +50,19 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            Debug.Log("Error");
+            MoveManager.Error();
         }
+    }
+    //ランダム部屋がなかったとき(自動でオープンとする)
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log("OnJoinRandomFailed");
+        PhotonNetwork.CreateRoom(null,
+                       new Photon.Realtime.RoomOptions
+                       {
+                           MaxPlayers = 4,
+                           IsVisible = true
+                       });
     }
 
     //部屋に入ったとき
@@ -55,53 +70,44 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnJoinedRoom");
         Room myroom = PhotonNetwork.CurrentRoom;
-        Photon.Realtime.Player localplayer = PhotonNetwork.LocalPlayer;
-        Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
-
         MachingManager.RoomID = myroom.Name;
-        MachingManager.PlayerCount = players.Length;
-        MachingManager.PlayerNumber = localplayer.ActorNumber;
-
-        MachingManager.SetPlayerCount();
+        SetPlayerInfo();
         MoveManager.EndConnect();
     }
-
+    //エラー系
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        Debug.Log("OnDisconnected");
+        MoveManager.Error();
+    }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         Debug.Log("OnJoinRoomFailed");
+        MoveManager.Error();
     }
-
-    //ランダム部屋がなかったとき
-    public override void OnJoinRandomFailed(short returnCode, string message)
+    public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        Debug.Log("OnJoinRandomFailed");
-        PhotonNetwork.CreateRoom(null,
-                       new Photon.Realtime.RoomOptions
-                       {
-                MaxPlayers = 4,
-                IsVisible = true
-            });
+        Debug.Log("OnCreateRoomFailed");
+        MoveManager.Error();
     }
 
+    //出入りするたびに自分の情報と人数を更新
+    void SetPlayerInfo()
+    {
+        Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
+        Photon.Realtime.Player localplayer = PhotonNetwork.LocalPlayer;
+
+        MachingManager.PlayerCount = players.Length;
+        MachingManager.PlayerNumber = localplayer.ActorNumber;
+        MachingManager.SetPlayerCount();
+    }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
-        Photon.Realtime.Player localplayer = PhotonNetwork.LocalPlayer;
-
-        Debug.Log(players.Length);
-        MachingManager.PlayerCount = players.Length;
-        MachingManager.PlayerNumber = localplayer.ActorNumber;
-        MachingManager.SetPlayerCount();
+        SetPlayerInfo();
     }
-
     public override void OnPlayerLeftRoom(Player player)
     {
-        Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
-        Photon.Realtime.Player localplayer = PhotonNetwork.LocalPlayer;
-
-        MachingManager.PlayerCount = players.Length;
-        MachingManager.PlayerNumber = localplayer.ActorNumber;
-        MachingManager.SetPlayerCount();
+        SetPlayerInfo();
     }
 
 }
