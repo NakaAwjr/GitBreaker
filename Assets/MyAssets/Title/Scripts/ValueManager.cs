@@ -13,12 +13,7 @@ public class ValueManager : MonoBehaviour
     private bool _israndom = false;
     private bool _isvisible = true;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
+    //Œˆ’è‚µ‚½‚ ‚Æ‚Éî•ñ‚ğŠm’è‚³‚¹‚é
     public void SetRandom(bool israndom) => _israndom = israndom;
     public void ClickEnter()
     {
