@@ -9,5 +9,7 @@ namespace Assets.MyAssets.Field.Scripts.Attacks
         public IAttacker Attacker { get; set; }
 
         protected float AttackPower { get; set; }
+
+        public abstract void StartAttack(int attackPower, IAttacker attacker);
     }
 }

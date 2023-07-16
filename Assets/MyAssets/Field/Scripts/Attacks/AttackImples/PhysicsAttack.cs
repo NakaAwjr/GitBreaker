@@ -11,7 +11,7 @@ namespace Assets.MyAssets.Field.Scripts.Attacks.Imples
         private float _hitEffectDuration = 0.1f;
         private int _attackPower;
         
-        public void StartAttack(int attackPower, IAttacker attacker)
+        public override void StartAttack(int attackPower, IAttacker attacker)
         {
             _attackPower = attackPower;
             this.Attacker = attacker;
