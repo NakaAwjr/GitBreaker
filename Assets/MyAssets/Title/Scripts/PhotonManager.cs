@@ -51,6 +51,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         else
         {
             MoveManager.Error();
+            PhotonNetwork.Disconnect();
         }
     }
     //�����_���������Ȃ������Ƃ�(�����ŃI�[�v���Ƃ���)
@@ -68,8 +69,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     //�����ɓ������Ƃ�
     public override void OnJoinedRoom()
     {
-        
-
         Debug.Log("OnJoinedRoom");
         Room myroom = PhotonNetwork.CurrentRoom;
         MachingManager.RoomID = myroom.Name;
@@ -81,16 +80,19 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnDisconnected");
         MoveManager.Error();
+        PhotonNetwork.Disconnect();
     }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         Debug.Log("OnJoinRoomFailed");
         MoveManager.Error();
+        PhotonNetwork.Disconnect();
     }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.Log("OnCreateRoomFailed");
         MoveManager.Error();
+        PhotonNetwork.Disconnect();
     }
 
     //�o���肷�邽�тɎ����̏��Ɛl�����X�V

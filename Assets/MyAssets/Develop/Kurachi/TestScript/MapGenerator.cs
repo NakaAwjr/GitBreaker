@@ -6,7 +6,10 @@ public class MapGenerator : MonoBehaviour
 {
     [SerializeField]int MaxMapSize=50;
     [SerializeField]int MaxRoom = 150;
-    [SerializeField] GameObject Room;
+    GameObject Room;
+    [SerializeField] List<GameObject> RoomList;
+    [SerializeField] GameObject BossRoom;
+    [SerializeField] GameObject StartRoom;
     GameObject[,] MapGrid;
     int[] currentPosition = new int[2];
     int[] nextDirectionVec = new int[2];
@@ -22,6 +25,7 @@ public class MapGenerator : MonoBehaviour
     void GenerateMap()
     {
         SetCurrentPosition((int)(MapGrid.GetLength(0)/2),0);
+        SelectRoom();
         CreateRoom();
         do{
             do{
@@ -131,6 +135,21 @@ public class MapGenerator : MonoBehaviour
                 }
             }
             str = str + "\n";
+        }
+    }
+    void SelectRoom()
+    {
+        if(CntRoom == 0)
+        {
+            Room = StartRoom;
+        }
+        else if(CntRoom == MaxRoom)
+        {
+            Room = BossRoom;
+        }
+        else
+        {
+            Room = RoomList[Random.Range(0,RoomList.Count)];
         }
     }
 }

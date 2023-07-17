@@ -434,7 +434,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 834145120}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 10
   m_WholeNumbers: 0
   m_Value: 0.57
   m_OnValueChanged:
@@ -516,6 +516,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51259295}
   m_CullTransparentMesh: 1
+--- !u!1001 &90322215
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6498472061642702065, guid: b8d9b8d9d814644c29d59b3b9decf103, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177868291484786448, guid: b8d9b8d9d814644c29d59b3b9decf103, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177868291484786448, guid: b8d9b8d9d814644c29d59b3b9decf103, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177868291484786448, guid: b8d9b8d9d814644c29d59b3b9decf103, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177868291484786448, guid: b8d9b8d9d814644c29d59b3b9decf103, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177868291484786448, guid: b8d9b8d9d814644c29d59b3b9decf103, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177868291484786448, guid: b8d9b8d9d814644c29d59b3b9decf103, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177868291484786448, guid: b8d9b8d9d814644c29d59b3b9decf103, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177868291484786448, guid: b8d9b8d9d814644c29d59b3b9decf103, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177868291484786448, guid: b8d9b8d9d814644c29d59b3b9decf103, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177868291484786448, guid: b8d9b8d9d814644c29d59b3b9decf103, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177868291484786448, guid: b8d9b8d9d814644c29d59b3b9decf103, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b8d9b8d9d814644c29d59b3b9decf103, type: 3}
 --- !u!1 &98319693
 GameObject:
   m_ObjectHideFlags: 0
@@ -4618,7 +4679,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 222692623}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 10
   m_WholeNumbers: 0
   m_Value: 0.7
   m_OnValueChanged:
@@ -5392,6 +5453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89fd0daa7fb87245b79a4fb9b736e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerCore: {fileID: 1956696249}
   _hpText: {fileID: 951701731}
   _mpText: {fileID: 591819081}
   _statusText: {fileID: 98319695}
@@ -5890,6 +5952,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1940422726}
   m_CullTransparentMesh: 1
+--- !u!114 &1956696249 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3098158357271676037, guid: b8d9b8d9d814644c29d59b3b9decf103, type: 3}
+  m_PrefabInstance: {fileID: 90322215}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74b8d195dbb1549659c9b731c2b73394, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1995118705
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using DG.Tweening;
 using Photon.Pun;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class MoveManager : MonoBehaviour
 {
