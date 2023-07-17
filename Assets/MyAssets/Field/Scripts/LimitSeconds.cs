@@ -19,7 +19,7 @@ public class LimitSeconds : MonoBehaviour
         _timeManager.SearchSecond
             .Subscribe(x =>
             {
-                _limitText.text = $"{x%60}:{x/60}";
+                _limitText.text = $"{x/60}:{x%60}";
                 if (x <= 0)
                 {
                     _limitText.text = "Time Over";
