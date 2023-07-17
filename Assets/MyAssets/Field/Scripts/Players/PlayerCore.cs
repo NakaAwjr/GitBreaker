@@ -126,7 +126,6 @@ namespace Assets.MyAssets.Field.Scripts.Players
         
         public void AddPlayerParameter(CharacterStates parameters)
         {
-            Debug.Log($"{_currentPlayerParameter["Hp"]}に{parameters.Hp}を加えるぞ！");
             _currentPlayerParameter["Hp"] += parameters.Hp;
             _currentPlayerParameter["Power"] += parameters.Power;
             _currentPlayerParameter["Defence"] += parameters.Defence;
@@ -134,7 +133,6 @@ namespace Assets.MyAssets.Field.Scripts.Players
             _currentPlayerParameter["MagicPower"] += parameters.MagicPower;
             _currentPlayerParameter["MagicDefence"] += parameters.MagicDefence;
             _currentPlayerParameter["Speed"] += parameters.Speed;
-            Debug.Log($"{_currentPlayerParameter["Hp"]}になったぞ！");
         }
 
 

@@ -38,9 +38,7 @@ namespace Assets.MyAssets.Field.Scripts.Enemies
             OnDamaged.Where(x => 0 < x.AttackValue - _currentEnemyParameter["Defence"])
                 .Subscribe(x =>
                 {
-                    Debug.Log($"{_currentEnemyParameter["Hp"]}!");
                     _currentEnemyParameter["Hp"] -= x.AttackValue - _currentEnemyParameter["Defence"];
-                    Debug.Log($"{_currentEnemyParameter["Hp"]}!");
                 });
             
             _onInitializeAsyncSubject
@@ -61,7 +59,6 @@ namespace Assets.MyAssets.Field.Scripts.Enemies
                         .Where(y => y.Key == "Hp" && y.NewValue <= 0)
                         .Subscribe(_ =>
                         {
-                            Debug.Log($"{_currentEnemyParameter["Hp"]}!");
                             _isAlive.Value = false;
                         });
 

@@ -33,7 +33,6 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
 
             foreach (var enemy in enemies)
             {
-                Debug.Log("見つけた");
                 enemy.GetComponent<EnemyCore>().IsAlive.Where(x => !x).Subscribe(_ => _killEnemyCount++);
             }
         }
