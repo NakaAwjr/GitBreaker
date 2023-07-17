@@ -11,14 +11,31 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
         private ReactiveProperty<bool> _isAlive = new ReactiveProperty<bool>(true);
         public ReactiveProperty<bool> IsAlive => _isAlive;
 
+        private readonly ReactiveCollection<bool> _reactiveCollection = new ReactiveCollection<bool>();
+
+        private int _killEnemyCount;
+        public int KillEnemyCount => _killEnemyCount;
+
         public void StartMonitorBoss()
         {
-            GameObject.FindWithTag("Boss").GetComponent<EnemyCore>().IsAlive
-                .Where(x => x == false)
-                .Subscribe(_ =>
-                {
-                    _isAlive.Value = false;
-                });
+            _killEnemyCount = 0;
+            if (GameObject.FindWithTag("Boss").GetComponent<EnemyCore>() != null)
+            {
+                GameObject.FindWithTag("Boss").GetComponent<EnemyCore>().IsAlive
+                    .Where(x => x == false)
+                    .Subscribe(_ =>
+                    {
+                        _isAlive.Value = false;
+                    });
+            }
+
+            var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+            foreach (var enemy in enemies)
+            {
+                Debug.Log("見つけた");
+                enemy.GetComponent<EnemyCore>().IsAlive.Where(x => !x).Subscribe(_ => _killEnemyCount++);
+            }
         }
     }
 }

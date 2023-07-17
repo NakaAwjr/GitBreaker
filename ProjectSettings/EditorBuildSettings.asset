@@ -11,10 +11,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MyAssets/Develop/Nakamura/TitleScene.unity
     guid: b496b3e4038d6a14b8c2f86b86e5823c
-  - enabled: 1
+  - enabled: 0
     path: Assets/MyAssets/Develop/Hayashi/Hayashi.unity
     guid: 03a33ff5f68d844c39acf1c6774c6008
-  - enabled: 1
+  - enabled: 0
     path: Assets/MyAssets/Develop/Kurachi/Kurachi.unity
     guid: 5c93370ccd5650342b419d96d5d911cf
+  - enabled: 1
+    path: Assets/MyAssets/GameScene/FieldScene.unity
+    guid: 21c182375cf564fb98e1fa268c86657b
+  - enabled: 1
+    path: Assets/MyAssets/GameScene/ResultScene.unity
+    guid: 2ad403335cabc401bb3b11f82777b8de
   m_configObjects: {}
