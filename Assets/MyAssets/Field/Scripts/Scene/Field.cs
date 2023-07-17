@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Assets.MyAssets.Common.Scripts;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 namespace Assets.MyAssets.Field.Scripts.Scene
