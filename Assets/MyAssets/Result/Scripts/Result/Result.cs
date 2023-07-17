@@ -32,6 +32,6 @@ public class Result : MonoBehaviour
             _isAlivePlayerText.text = "Player Die...";
         }
 
-        _killCountText.text = $"You kill {killCount} enemies";
+        _killCountText.text = $"You break {killCount} MG";
     }
 }
