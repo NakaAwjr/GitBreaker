@@ -24,7 +24,7 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
 
         public PlayerCore CreatePlayer(PlayerId id, Vector3 position, IGameStateProvider gameStateProvider)
         {
-            var go = PhotonNetwork.Instantiate("Player", position, Quaternion.identity);
+            var go = PhotonNetwork.Instantiate("Player", position + new Vector3(Random.Range(-2, 3), Random.Range(-2, 3),0f), Quaternion.identity);
             var core = go.GetComponent<PlayerCore>();
             core.InitializePlayer(id, gameStateProvider);
             _players.Add(id, core);
