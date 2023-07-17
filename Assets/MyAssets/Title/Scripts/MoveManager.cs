@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class MoveManager : MonoBehaviour
 {
@@ -157,6 +158,7 @@ public class MoveManager : MonoBehaviour
     [SerializeField] private string _scenename;
     public void ClickStart()
     {
+        PhotonNetwork.IsMessageQueueRunning = false;
         SceneManager.LoadScene(_scenename);
     }
 }

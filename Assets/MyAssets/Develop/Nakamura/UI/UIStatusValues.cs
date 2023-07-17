@@ -52,9 +52,6 @@ public class UIStatusValues : MonoBehaviour
                 case "MagicDefence":
                     _status[3] = x.NewValue;
                     break;
-                case "Speed":
-                    _status[4] = x.NewValue;
-                    break;
                 case "Wepon":
                     _weponTexr.text = "Wepon:" + x.NewValue;
                     break;
@@ -73,8 +70,7 @@ public class UIStatusValues : MonoBehaviour
             _statusText.text = "Power:" + _status[0] + "\n" +
                                "Defence:" + _status[1] + "\n" +
                                "MagicPower:" + _status[2] + "\n" +
-                               "MagicDefence:" + _status[3] + "\n" +
-                               "Speed:" + _status[4];
+                               "MagicDefence:" + _status[3];
         });
     }
 }

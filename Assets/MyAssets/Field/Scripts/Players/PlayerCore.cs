@@ -123,6 +123,7 @@ namespace Assets.MyAssets.Field.Scripts.Players
             _currentPlayerParameter["MagicDefence"] = parameters.MagicDefence;
             _currentPlayerParameter["Speed"] = parameters.Speed;
         }
+
         
         public void AddPlayerParameter(CharacterStates parameters)
         {
