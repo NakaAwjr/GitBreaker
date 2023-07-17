@@ -54,13 +54,15 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
 
             IEnumerator InitCoroutine()
             {
+                yield return new WaitForSeconds(1);
+                var firstpos = GameObject.FindWithTag("FirstRoom").transform.position;
                 //ここでプレイヤーの生成等行います。
                 _playerCore = _playerProvider.CreatePlayer(
                     PlayerId.Player1,
-                    Vector3.zero,
+                    firstpos,
                     this
                 );
-                
+
                 yield return null;
                 
                 _currentState.Value = GameState.Ready;
@@ -92,7 +94,6 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
 
             void Finish()
             {
-                Debug.Log($"{_enemyManager.KillEnemyCount}体");
                 _field.SceneLoad(_enemyManager.IsAlive.Value,_playerCore.IsAlive.Value, _enemyManager.KillEnemyCount);
             }
         }

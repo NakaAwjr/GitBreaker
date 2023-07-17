@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class MapGeneratorCopy : MonoBehaviour
@@ -17,11 +18,12 @@ public class MapGeneratorCopy : MonoBehaviour
     [SerializeField] List<GameObject> RoomList;
     [SerializeField] GameObject BossRoom;
     [SerializeField] GameObject StartRoom;
-    [SerializeField] GameObject Player;
+    GameObject[] _players;
 
-    void Start(){
+    void Start()
+    {
         SetCurrentPosition((int)(MapGrid.GetLength(0)/2),0);
-        Player.transform.position = new Vector3((int)(MapGrid.GetLength(0) / 2), 0, 0);
+        //Player.transform.position = new Vector3((int)(MapGrid.GetLength(0) / 2), 0, 0);
         CreateRoom();
         do{
             do{
@@ -38,7 +40,6 @@ public class MapGeneratorCopy : MonoBehaviour
             }
         }while(!CheckMaxRoom());
         Show();
-        
     }
 
     void SelectRoot(){
@@ -67,8 +68,14 @@ public class MapGeneratorCopy : MonoBehaviour
     void CreateRoom(){
         SelectRoom();
         Vector3 pos = new Vector3(currentPosition[0]*10,currentPosition[1]*10,0);
-        var Roomobj = Instantiate(Room,pos,transform.rotation);
-        MapGrid[currentPosition[0],currentPosition[1]] = Roomobj;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            var Roomobj = PhotonNetwork.InstantiateRoomObject(Room.name,pos,transform.rotation);
+        
+            MapGrid[currentPosition[0],currentPosition[1]] = Roomobj;
+        }
+
         CntRoom++;
         // Debug.Log("[Debug] CreateRoom "+currentPosition[0]+" "+currentPosition[1]);
     }

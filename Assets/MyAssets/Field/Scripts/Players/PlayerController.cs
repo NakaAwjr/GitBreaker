@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.MyAssets.Field.Scripts.GameManagers;
 using UnityEngine;
 using UniRx;
 
@@ -16,7 +17,7 @@ namespace Assets.MyAssets.Field.Scripts.Players
         protected override void OnInitialize()
         {
             InputProvider.MoveDirection
-                //.Where(_ => PlayerCore.CurrentGameState.Value == GameState.Battle)
+                .Where(_ => PlayerCore.CurrentGameState.Value == GameState.Search)
                 .Subscribe(x =>
                 {
                     var value = (!PlayerCore.IsAlive.Value) ? Vector3.zero : x;

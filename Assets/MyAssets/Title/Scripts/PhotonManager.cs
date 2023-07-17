@@ -12,7 +12,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public MachingManager MachingManager;
     private bool _iscreate;
 
-    //ƒ}ƒXƒ^[ƒT[ƒo[‚ÖÚ‘±
+    //ï¿½}ï¿½Xï¿½^ï¿½[ï¿½Tï¿½[ï¿½oï¿½[ï¿½ÖÚ‘ï¿½
     public void StartConnect(bool iscreate)
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -21,7 +21,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         
     }
 
-    //•”‰®‚ğì¬A‚Ü‚½‚Í•”‰®‚É“üº
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¬ï¿½Aï¿½Ü‚ï¿½ï¿½Í•ï¿½ï¿½ï¿½ï¿½É“ï¿½ï¿½ï¿½
     public override void OnConnectedToMaster()
     {
         Debug.Log("OnConnectedToMaster");
@@ -54,7 +54,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             PhotonNetwork.Disconnect();
         }
     }
-    //ƒ‰ƒ“ƒ_ƒ€•”‰®‚ª‚È‚©‚Á‚½‚Æ‚«(©“®‚ÅƒI[ƒvƒ“‚Æ‚·‚é)
+    //ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ÅƒIï¿½[ï¿½vï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½)
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("OnJoinRandomFailed");
@@ -66,7 +66,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                        });
     }
 
-    //•”‰®‚É“ü‚Á‚½‚Æ‚«
+    //ï¿½ï¿½ï¿½ï¿½ï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½
     public override void OnJoinedRoom()
     {
         Debug.Log("OnJoinedRoom");
@@ -75,7 +75,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         SetPlayerInfo();
         MoveManager.EndConnect();
     }
-    //ƒGƒ‰[Œn
+    //ï¿½Gï¿½ï¿½ï¿½[ï¿½n
     public override void OnDisconnected(DisconnectCause cause)
     {
         Debug.Log("OnDisconnected");
@@ -95,7 +95,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.Disconnect();
     }
 
-    //o“ü‚è‚·‚é‚½‚Ñ‚É©•ª‚Ìî•ñ‚Æl”‚ğXV
+    //ï¿½oï¿½ï¿½ï¿½è‚·ï¿½é‚½ï¿½Ñ‚Éï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½Ælï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½V
     void SetPlayerInfo()
     {
         Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
