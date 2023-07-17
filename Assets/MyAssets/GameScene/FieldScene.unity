@@ -198,7 +198,7 @@ MonoBehaviour:
   _readySecond:
     value: 4
   _searchSecond:
-    value: 10
+    value: 50
 --- !u!114 &427483415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -866,7 +866,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1325485879}
-  - component: {fileID: 1325485878}
   - component: {fileID: 1325485880}
   m_Layer: 0
   m_Name: MapGenerator
@@ -875,23 +874,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1325485878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1325485877}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57c09ec6d7aab3d44b8ef60ec9a2e83a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxMapSize: 50
-  MaxRoom: 150
-  RoomList: []
-  BossRoom: {fileID: 0}
-  StartRoom: {fileID: 0}
 --- !u!4 &1325485879
 Transform:
   m_ObjectHideFlags: 0
@@ -919,13 +901,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475760ebad5d86e4ca5574bd11b0f1e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxRoom: 30
   RoomList:
-  - {fileID: 8722084213776263242, guid: e29b10b232f300645931a24df939accd, type: 3}
-  - {fileID: 8722084213776263242, guid: 466f483099a933f40aca4b7125b6fd18, type: 3}
-  - {fileID: 8722084213776263242, guid: e67f1733d356385448aff507d32e6f02, type: 3}
-  - {fileID: 8722084213776263242, guid: 60409ed58c8d8b840b9f817cf6110c7d, type: 3}
-  BossRoom: {fileID: 8722084213776263242, guid: 4c629e9d7de878b4683a5dad586ec193, type: 3}
-  StartRoom: {fileID: 8722084213776263242, guid: 000a4b1f4ed4d2b46a597b9a0a1f2dc9, type: 3}
+  - {fileID: 8722084213776263242, guid: a7abcce9b66a444d4a19fac4a6c15cdc, type: 3}
+  - {fileID: 8722084213776263242, guid: c14a0314ca61d4082a4d2a513040ed7d, type: 3}
+  - {fileID: 8722084213776263242, guid: fb78b5ac5de5d46d1ae2a50348444c8e, type: 3}
+  - {fileID: 8722084213776263242, guid: 4db2c8f9976194f6cae698f663044b25, type: 3}
+  BossRoom: {fileID: 8722084213776263242, guid: c260ebdaf510947dfb803d4bbd08f973, type: 3}
+  StartRoom: {fileID: 8722084213776263242, guid: 48d1fb7fc1c4a487a8d9938b44a52104, type: 3}
 --- !u!1 &1394989365
 GameObject:
   m_ObjectHideFlags: 0
