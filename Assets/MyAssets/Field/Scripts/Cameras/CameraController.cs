@@ -13,7 +13,7 @@ namespace Assets.MyAssets.Field.Cameras
         
         IEnumerator Start()
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(5.5f);
             _players = GameObject.FindGameObjectsWithTag("Player");
             foreach (var player in _players)
             {
