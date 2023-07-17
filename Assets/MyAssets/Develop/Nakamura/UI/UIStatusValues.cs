@@ -1,6 +1,7 @@
 using Assets.MyAssets.Field.Scripts.Players;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,8 +11,9 @@ using UniRx;
 
 public class UIStatusValues : MonoBehaviour
 {
-    [SerializeField]
     PlayerCore _playerCore;
+
+    private GameObject[] _players;
 
     private List<int> _status;
 
@@ -21,13 +23,23 @@ public class UIStatusValues : MonoBehaviour
     [SerializeField] private Slider _hpSlider;
     [SerializeField] private Slider _mpSlider;
 
-    [SerializeField] private TMP_Text _weponTexr;
+    [SerializeField] private TMP_Text _weaponText;
     [SerializeField] private TMP_Text _headText;
     [SerializeField] private TMP_Text _bodyText;
     [SerializeField] private TMP_Text _bottomText;
 
-    void Start()
+    IEnumerator Start()
     {
+        yield return new WaitForSeconds(5.5f);
+        _players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var player in _players)
+        {
+            if (player.GetComponent<PhotonView>().IsMine)
+            {
+                _playerCore = player.GetComponent<PlayerCore>();
+            }
+        }
+        
         _playerCore.CurrentPlayerParameter.ObserveReplace().Subscribe(x =>
         {
             switch(x.Key)
@@ -51,18 +63,7 @@ public class UIStatusValues : MonoBehaviour
                     break;
                 case "MagicDefence":
                     _status[3] = x.NewValue;
-                    break;
-                case "Wepon":
-                    _weponTexr.text = "Wepon:" + x.NewValue;
-                    break;
-                case "Head":
-                    _headText.text = "Head:" + x.NewValue;
-                    break;
-                case "Body":
-                    _bodyText.text = "Body:" + x.NewValue;
-                    break;
-                case "Bottom":
-                    _bottomText.text = "Bottom:" + x.NewValue;
+                    
                     break;
                 default:
                     break;

@@ -24,7 +24,6 @@ public class MapGeneratorCopy : MonoBehaviour
     void Start()
     {
         SetCurrentPosition((int)(MapGrid.GetLength(0)/2),0);
-        //Player.transform.position = new Vector3((int)(MapGrid.GetLength(0) / 2), 0, 0);
         CreateRoom();
         do{
             do{
@@ -85,11 +84,10 @@ public class MapGeneratorCopy : MonoBehaviour
         GameObject pastRoom    = MapGrid[pastPosition[0]   ,pastPosition[1]];
         Destroy(pastRoom.transform.GetChild(2).transform.GetChild(nextDirection).gameObject);
         if(nextDirection%2==0){
-            Destroy(currentRoom.transform.GetChild(2).transform.GetChild(nextDirection+1).gameObject);    
-            Debug.Log("[Debug] CreateRoot "+nextDirection+" "+(nextDirection+1));
-        }else{
-            Destroy(currentRoom.transform.GetChild(2).transform.GetChild(nextDirection-1).gameObject);    
-            Debug.Log("[Debug] CreateRoot "+nextDirection+" "+(nextDirection-1));
+            Destroy(currentRoom.transform.GetChild(2).transform.GetChild(nextDirection+1).gameObject);   
+        }else
+        {
+            Destroy(currentRoom.transform.GetChild(2).transform.GetChild(nextDirection - 1).gameObject);
         }
         
     }
