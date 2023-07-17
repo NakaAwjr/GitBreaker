@@ -92,7 +92,8 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
 
             void Finish()
             {
-                _field.SceneLoad(_enemyManager.IsAlive.Value,_playerCore.IsAlive.Value);
+                Debug.Log($"{_enemyManager.KillEnemyCount}体");
+                _field.SceneLoad(_enemyManager.IsAlive.Value,_playerCore.IsAlive.Value, _enemyManager.KillEnemyCount);
             }
         }
     }
