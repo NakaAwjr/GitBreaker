@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Photon.Pun;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -26,10 +27,18 @@ public class MoveManager : MonoBehaviour
     public PhotonManager PhotonManager;
     public MachingManager MachingManager;
 
-    //ÉAÉjÉÅÅ[ÉVÉáÉìÇÃë¨Ç≥
+    //ÔøΩAÔøΩjÔøΩÔøΩÔøΩ[ÔøΩVÔøΩÔøΩÔøΩÔøΩÔøΩÃëÔøΩÔøΩÔøΩ
     [SerializeField] private float _speed = 0.5f;
 
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.AutomaticallySyncScene = true;
+        }
+    }
     void Start()
     {
         _title.SetActive(true);
@@ -55,7 +64,7 @@ public class MoveManager : MonoBehaviour
         _error.transform.position = new Vector3(0, 10, 0);
     }
 
-    //É^ÉCÉgÉãÇ™è¡Ç¶ÇΩÇ†Ç∆
+    //ÔøΩ^ÔøΩCÔøΩgÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
     public void EndTitle()
     {
         _title.SetActive(false);
@@ -64,7 +73,7 @@ public class MoveManager : MonoBehaviour
         _selectroomcanvas.DOFade(1.0f, _speed);
     }
     
-    //ïîâÆì¸é∫âÊñ 
+    //ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
     public void ClickVisitRoom()
     {
         _visitroom.SetActive(true);
@@ -80,7 +89,7 @@ public class MoveManager : MonoBehaviour
         };
     }
 
-    //ïîâÆçÏê¨âÊñ 
+    //ÔøΩÔøΩÔøΩÔøΩÔøΩÏê¨ÔøΩÔøΩÔøΩ
     public void ClickCreateRoom()
     {
         _createroom.SetActive(true);
@@ -95,18 +104,18 @@ public class MoveManager : MonoBehaviour
         };
     }
 
-    //ÉçÅ[ÉfÉBÉìÉOâÊñ Ç÷à⁄çs
+    //ÔøΩÔøΩÔøΩ[ÔøΩfÔøΩBÔøΩÔøΩÔøΩOÔøΩÔøΩ Ç÷à⁄çs
     public void ClickEnterCreate(bool iscreate)
     {
         _roadingbackgroundobject.SetActive(true);
         _roadingbackground.DOFade(0.5f, _speed);
         _roading.SetActive(true);
         _roading.transform.DOMove(new Vector3(0, 0, 0), _speed).SetEase(Ease.InOutBack);
-        //PhotonÇ…ê⁄ë±
+        //PhotonÔøΩ…ê⁄ëÔøΩ
         PhotonManager.StartConnect(iscreate);
     }
 
-    //ÉGÉâÅ[âÊñ 
+    //ÔøΩGÔøΩÔøΩÔøΩ[ÔøΩÔøΩÔøΩ
     public void Error()
     {
         _error.SetActive(true);
@@ -128,7 +137,7 @@ public class MoveManager : MonoBehaviour
         };
     }
 
-    //É}ÉbÉ`ÉìÉOâÊñ Ç÷à⁄çs
+    //ÔøΩ}ÔøΩbÔøΩ`ÔøΩÔøΩÔøΩOÔøΩÔøΩ Ç÷à⁄çs
     public void EndConnect()
     {
         _roading.transform.DOMove(new Vector3(0, 10, 0), _speed).SetEase(Ease.InBack).onComplete = () =>
@@ -157,6 +166,12 @@ public class MoveManager : MonoBehaviour
     [SerializeField] private string _scenename;
     public void ClickStart()
     {
-        SceneManager.LoadScene(_scenename);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log($"„É´„Éº„É†ÂÜÖ„ÅÆ„Éó„É¨„Ç§„É§„Éº : {PhotonNetwork.CountOfPlayersInRooms}\nÊé•Á∂ö„Åó„Å¶„ÅÑ„Çã„Éó„É¨„Ç§„É§„Éº : {PhotonNetwork.CountOfPlayers}");
+            PhotonNetwork.IsMessageQueueRunning = false;
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.LoadLevel(_scenename);
+        }
     }
 }
