@@ -54,7 +54,7 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
 
             IEnumerator InitCoroutine()
             {
-                yield return null;
+                yield return new WaitForSeconds(1);
                 var firstpos = GameObject.FindWithTag("FirstRoom").transform.position;
                 //ここでプレイヤーの生成等行います。
                 _playerCore = _playerProvider.CreatePlayer(

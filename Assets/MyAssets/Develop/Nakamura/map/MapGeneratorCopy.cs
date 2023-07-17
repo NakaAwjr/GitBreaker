@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class MapGeneratorCopy : MonoBehaviour
@@ -67,18 +68,14 @@ public class MapGeneratorCopy : MonoBehaviour
     void CreateRoom(){
         SelectRoom();
         Vector3 pos = new Vector3(currentPosition[0]*10,currentPosition[1]*10,0);
-        var Roomobj = Instantiate(Room,pos,transform.rotation);
-        
-        if (CntRoom == 0)
+
+        if (PhotonNetwork.IsMasterClient)
         {
-            _players = GameObject.FindGameObjectsWithTag("Player");
-            foreach (var player in _players)
-            {
-                player.transform.position = pos;
-            }
-        }
+            var Roomobj = PhotonNetwork.InstantiateRoomObject(Room.name,pos,transform.rotation);
         
-        MapGrid[currentPosition[0],currentPosition[1]] = Roomobj;
+            MapGrid[currentPosition[0],currentPosition[1]] = Roomobj;
+        }
+
         CntRoom++;
         // Debug.Log("[Debug] CreateRoom "+currentPosition[0]+" "+currentPosition[1]);
     }
