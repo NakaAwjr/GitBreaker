@@ -54,13 +54,15 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
 
             IEnumerator InitCoroutine()
             {
+                yield return null;
+                var firstpos = GameObject.FindWithTag("FirstRoom").transform.position;
                 //ここでプレイヤーの生成等行います。
                 _playerCore = _playerProvider.CreatePlayer(
                     PlayerId.Player1,
-                    Vector3.zero,
+                    firstpos,
                     this
                 );
-                
+
                 yield return null;
                 
                 _currentState.Value = GameState.Ready;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.MyAssets.Field.Scripts.Players;
+using Photon.Pun;
 using UniRx;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ namespace Assets.MyAssets.Field.Scripts.GameManagers
 
         public PlayerCore CreatePlayer(PlayerId id, Vector3 position, IGameStateProvider gameStateProvider)
         {
-            var go = Instantiate(_playerPrefab, position, Quaternion.identity);
+            var go = PhotonNetwork.Instantiate("Player", position, Quaternion.identity);
             var core = go.GetComponent<PlayerCore>();
             core.InitializePlayer(id, gameStateProvider);
             _players.Add(id, core);
