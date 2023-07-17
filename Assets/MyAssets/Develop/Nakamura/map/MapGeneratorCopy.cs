@@ -12,6 +12,7 @@ public class MapGeneratorCopy : MonoBehaviour
     int[] nextPosition = new int[2];
     int[] pastPosition = new int[2];
     int CntRoom = 0;
+    [SerializeField]
     int MaxRoom = 150;
     //[SerializeField] GameObject Room;
     GameObject Room;
